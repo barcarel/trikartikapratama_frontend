@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Dropdown from './Dropdown';
-import { MDBNavLink, MDBNavItem } from 'mdbreact';
+import { MDBNavLink, MDBNavItem, MDBBtn } from 'mdbreact';
 import { Link } from 'react-router-dom'
 
 
@@ -14,7 +14,7 @@ class NavBarMenu extends Component {
     render() {
         return (
             <div>
-                <nav className= "navbar navbar-expand-lg shift">
+                <nav className="navbar navbar-menu navbar-expand-lg shift">
                     <div className="container">
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
@@ -56,39 +56,16 @@ class NavBarMenu extends Component {
 
                             </ul>
                             <span className="navbar-text white-text">
-                                {/* <button className="btn btn-primary" outline>register</button> */}
-                                <button type="button" class="btn btn-outline-light">register</button>
+                                <Link to='/register'>
+                                    <MDBBtn className="user-register-btn" color="white">register</MDBBtn>
+                                </Link>
+                                <Link to='/userlogin'>
+                                    <MDBBtn color="indigo darken-4">login</MDBBtn>
+                                </Link>
                             </span>
                         </div>
                     </div>
                 </nav>
-
-                {/* <nav class="navbar navbar-expand-lg luar">
-                <div className="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse container-menu" id="navbarText">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active menu">
-                            <MDBNavLink to='/' className="al">Home</MDBNavLink>
-                        </li>
-                        <li class="nav-item menu">
-                            <MDBNavLink to='/products' className="al">Products</MDBNavLink>
-                        </li>
-                        <li class="nav-item menu">
-                            <MDBNavLink to='/about' className="al">About</MDBNavLink>
-                        </li>
-                        <li class="nav-item menu">
-                            <MDBNavLink to='/contactus' className="al">Contact</MDBNavLink>
-                        </li>
-                    </ul>
-                    <span class="navbar-text">
-                        <Dropdown />
-                    </span>
-                </div>
-                </div>
-            </nav> */}
             </div>
         )
     }

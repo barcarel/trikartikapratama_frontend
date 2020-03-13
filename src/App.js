@@ -16,6 +16,8 @@ import Notfound from './Pages/404notfound';
 import Admin from './Pages/AdminLogin';
 import AdminHomepage from './Pages/AdminHomepage';
 import AdminProducts from './Pages/AdminProducts';
+import Register from './Pages/Register';
+import UserLogin from './Pages/UserLogin';
 
 class App extends Component {
 
@@ -31,6 +33,8 @@ class App extends Component {
           <Route path='/about' component={About} />
           <Route path='/contactus' component={ContactUs} />
           <Route path='/products' component={Products} />
+          <Route path='/register' component={Register} />
+          <Route path='/userlogin' component={UserLogin} />
           <Route path='/productdetail' component={ProductDetail} />
           <Route path='/adminlogin' component={Admin} />
           {this.props.token

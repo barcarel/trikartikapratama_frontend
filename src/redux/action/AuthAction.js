@@ -2,12 +2,13 @@ import Axios from "axios"
 import { API_URL } from '../../support/API_URL'
 import Swal from "sweetalert2"
 
-export const login = (username, password) => {
-    console.log(`ACTION: username: ${username} and password: ${password}`)
+export const login = (username, password, role) => {
+    console.log(`ACTION: username: ${username} and password: ${password} and role: ${role}`)
     return (dispatch) => {
         Axios.post(API_URL + `/user/login`, {
             username,
-            password
+            password,
+            role
         })
             .then((res) => {
                 localStorage.setItem('token', res.data.token)
@@ -19,7 +20,7 @@ export const login = (username, password) => {
             .catch((err) => {
                 Swal.fire({
                     icon: 'error',
-                    text: 'wrong username/password'
+                    text: 'invalid username or password'
                 })
                 dispatch({
                     type: 'LOGOUT'
@@ -60,5 +61,31 @@ export const keepLogin = () => { //one function that executes two diff reducers
                     })
                 })
         }
+    }
+}
+
+export const register = (username, password, role) => {
+    return (dispatch) => {
+        Axios.post(API_URL + `/user/userRegister`, {
+            username,
+            password,
+            role
+        })
+            .then((res) => {
+                localStorage.setItem('token', res.data.token)
+                dispatch({
+                    type: 'LOGIN',
+                    payload: res.data
+                })
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'invalid username or password'
+                })
+                dispatch({
+                    type: 'LOGOUT'
+                })
+            })
     }
 }

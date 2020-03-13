@@ -26,9 +26,10 @@ class Admin extends Component {
 
         var username = this.refs.username.value
         var password = this.refs.password.value
+        var role = 'admin'
 
         if (username && password) {
-            this.props.login(username, password)
+            this.props.login(username, password, role)
             // if(this.props.username){
             //     this.setState({redirect: true})
             // }
