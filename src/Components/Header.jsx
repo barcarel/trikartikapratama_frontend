@@ -3,13 +3,10 @@ import { Row, Col, Button, Container, Dropdown } from 'reactstrap';
 import CallTwoToneIcon from '@material-ui/icons/CallTwoTone';
 import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
 import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
-import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import UserProfileDropdown from '../Components/UserProfileDropdown'
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
     render() {
         return (
             <div>
@@ -26,9 +23,6 @@ class Header extends Component {
                 </nav>
                 <div className="container">
                     <div className="d-flex">
-                        {/* <div className="d-lg-none">
-                        <img src={require('../img/logo_tkp_final.png')} alt="header-logo" style={{ maxWidth: "60vh", paddingTop: "1%", paddingBottom: "1%" }} />
-                    </div> */}
                         <div className="mr-auto p-2">
                             <img className="img-fluid" src={require('../img/logo/logo_tkp_final.png')} alt="header-logo" style={{ width: "60vh", maxWidth: "100%", height: "auto", paddingTop: "1%", paddingBottom: "1%" }} />
                         </div>
@@ -63,7 +57,14 @@ class Header extends Component {
         );
     }
 }
-export default Header;
+
+const mapStateToProps = ({ user }) => {
+    return {
+        ...user
+    }
+}
+
+export default connect(mapStateToProps)(Header);
 {/* <div className="header">
             <Row className="headerr">
                 <Col xs="5" className="header-left">

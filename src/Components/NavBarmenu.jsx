@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import Dropdown from './Dropdown';
 import { MDBNavLink, MDBNavItem, MDBBtn } from 'mdbreact';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../redux/action'
+import UserProfileDropdown from '../Components/UserProfileDropdown'
 
 
 class NavBarMenu extends Component {
 
     state = {
         menuChosen: "home"
+    }
+
+    onBtnLogOut = () => {
+        this.props.logout()
     }
 
 
@@ -56,12 +63,20 @@ class NavBarMenu extends Component {
 
                             </ul>
                             <span className="navbar-text white-text">
-                                <Link to='/register'>
-                                    <MDBBtn className="user-register-btn" color="white">register</MDBBtn>
-                                </Link>
-                                <Link to='/userlogin'>
-                                    <MDBBtn color="indigo darken-4">login</MDBBtn>
-                                </Link>
+                                {this.props.username
+                                    ?
+                                    // <MDBBtn color="red darken-4" onClick={this.onBtnLogOut}>log out</MDBBtn>
+                                    <UserProfileDropdown />
+                                    :
+                                    <div>
+                                        <Link to='/register'>
+                                            <MDBBtn className="user-register-btn" color="white">register</MDBBtn>
+                                        </Link>
+                                        <Link to='/userlogin'>
+                                            <MDBBtn color="indigo darken-4">login</MDBBtn>
+                                        </Link>
+                                    </div>
+                                }
                             </span>
                         </div>
                     </div>
@@ -71,5 +86,11 @@ class NavBarMenu extends Component {
     }
 };
 
+const mapStateToProps = ({ user }) => {
+    return {
+        ...user
+    }
+}
 
-export default NavBarMenu;
+
+export default connect(mapStateToProps, {logout})(NavBarMenu);

@@ -54,7 +54,7 @@ class Register extends Component {
     // }
 
     render() {
-        if (this.state.redirect) {
+        if (this.state.redirect || localStorage.getItem('token')) {
             return (
                 <Redirect to='/'></Redirect>
             )
@@ -97,7 +97,7 @@ class Register extends Component {
                                 {/* <div className="">home</div> */}
                                 <div className="text-center">
                                     <p style={{ fontSize: '3vh' }}>
-                                        register
+                                        register an account
                                 </p>
                                 </div>
                                 <MDBContainer>
@@ -108,10 +108,10 @@ class Register extends Component {
                                     <MDBInput type="password" label="Password*" inputRef={(password) => this.password = password} />
                                     <MDBInput type="password" label="Confirm Password*" inputRef={(confirmPassword) => this.confirmPassword = confirmPassword} />
                                     <div className="text-center">
+                                        <MDBBtn color='red darken-4' onClick={this.onBtnRegister}>register</MDBBtn>
                                         <Link to='/userlogin'>
                                             <MDBBtn outline color='red darken-4'>log in</MDBBtn>
                                         </Link>
-                                        <MDBBtn color='red darken-4' onClick={this.onBtnRegister}>register</MDBBtn>
                                         <div className="mt-2">
                                             forgot password?
                                         </div>

@@ -7,22 +7,22 @@ import Swal from 'sweetalert2'
 import Axios from 'axios'
 import { login } from '../redux/action'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 class UserLogin extends Component {
 
-    onBtnRegister = () => {
+    state = {
+        redirect: false
+    }
+
+    onBtnLogIn = () => {
         var username = this.username.value
         var password = this.password.value
-        var confirmpassword = this.confirmPassword.value
         var role = 'user'
 
-        if (username && password && confirmpassword) {
-            if (password != confirmpassword) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'invalid confirm password'
-                })
-            }
+        console.log(username, password, role)
+
+        if (username && password) {
             this.props.login(username, password, role)
         } else {
             Swal.fire({
@@ -42,21 +42,26 @@ class UserLogin extends Component {
     // }
 
     render() {
+        if (localStorage.getItem('token')) {
+            return (
+                <Redirect to='/'></Redirect>
+            )
+        }
         return (
             <div>
                 <div>
                     <div className="row">
-                    <div className="col-4"></div>
+                        <div className="col-4"></div>
                         <div className="col-8">
                             <div>
                                 <nav className="navbar userlogin-navbar">
                                     <div className="container flex-row-reverse pr-4">
-                                        <div className="d-flex" style={{ opacity: "0.9"}}>Your reliable UPS Supplier in Indonesia</div>
+                                        <div className="d-flex" style={{ opacity: "0.9" }}>Your reliable UPS Supplier in Indonesia</div>
                                     </div>
                                 </nav>
                                 <div className="container">
                                     <div className="d-flex flex-row-reverse pr-4">
-                                            <img className="img-fluid" src={require('../img/logo/logo_tkp_final.png')} alt="header-logo" style={{ width: "60vh", maxWidth: "100%", height: "auto", paddingTop: "1%", paddingBottom: "1%" }} />
+                                        <img className="img-fluid" src={require('../img/logo/logo_tkp_final.png')} alt="header-logo" style={{ width: "60vh", maxWidth: "100%", height: "auto", paddingTop: "1%", paddingBottom: "1%" }} />
                                     </div>
                                 </div>
                             </div >
@@ -74,11 +79,11 @@ class UserLogin extends Component {
                                     <MDBInput label="Username" inputRef={(username) => this.username = username} />
                                     <MDBInput type="password" label="Password" inputRef={(password) => this.password = password} />
                                     <div className="text-center">
+                                        <Link to='/userlogin'>
+                                            <MDBBtn color='red darken-4' onClick={this.onBtnLogIn}>log in</MDBBtn>
+                                        </Link>
                                         <Link to='/register'>
                                             <MDBBtn outline color='red darken-4'>register</MDBBtn>
-                                        </Link>
-                                        <Link to='/userlogin'>
-                                            <MDBBtn color='red darken-4'>log in</MDBBtn>
                                         </Link>
                                         <div className="mt-2">
                                             forgot password?
@@ -94,6 +99,12 @@ class UserLogin extends Component {
                 </div>
             </div>
         );
+    }
+}
+
+const mapStateToProps = ({ user }) => {
+    return {
+        ...user
     }
 }
 
