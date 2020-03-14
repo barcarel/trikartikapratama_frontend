@@ -3,29 +3,31 @@ import { Row, Col, Button, Container, Dropdown } from 'reactstrap';
 import CallTwoToneIcon from '@material-ui/icons/CallTwoTone';
 import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
 import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import AdminNavbar from '../Components/AdminNavbar'
 
 class Header extends Component {
     render() {
         return (
             <div>
+                {this.props.role == 'admin'
+                    ?
+                    <div>
+                        {/* <Link to='/adminhomepage'> */}
+                            {/* <SupervisorAccountIcon />
+                                &nbsp;
+                                 ADMIN */}
+                            <AdminNavbar />
+                        {/* </Link> */}
+                    </div>
+                    :
+                    <div />
+                }
                 <nav className="navbar justify-content-between">
                     <div className="container">
                         <div style={{ opacity: "0.9" }}>Your reliable UPS Supplier in Indonesia</div>
-                        {this.props.role == 'admin'
-                            ?
-                            <div className="float-right" style={{  color: '#000 !important', backgroundColor: 'white', padding: '0.5vh' }}>
-                                <Link to='/adminhomepage'>
-                                    <SupervisorAccountIcon />
-                                &nbsp;
-                                 ADMIN
-                                </Link>
-                            </div>
-                            :
-                            <div />
-                        }
+
                     </div>
                     {/* <form className="form-inline navbar-right">
                             <a className="navbar-brand"><FacebookIcon /></a>

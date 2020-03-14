@@ -18,15 +18,15 @@ class AdminHomepage extends Component {
             isEdit: false,
 
             uploadSecificationFileName: 'choose file',
-            addSpecificationFileName: 'select file',
+            addSpecificationFileName: ' Specification Image',
             addSpecificationFile: undefined,
 
             uploadPdfFileName: 'choose file',
-            addPdfFileName: 'select file',
+            addPdfFileName: 'PDF',
             addPdfFile: undefined,
 
             uploadFileName: 'choose file',
-            addImageFileName: 'select file',
+            addImageFileName: 'Product Image',
             addImageFile: undefined,
 
             editImageFileName: 'select file',
@@ -73,6 +73,25 @@ class AdminHomepage extends Component {
         }
     }
 
+    onBtnEditPdfFile = (e) => {
+        if (e.target.files[0]) {
+            this.setState({ editPdfFileName: e.target.files[0].name, editPdfFile: e.target.files[0] })
+        } else {
+            this.setState({ editPdfFileName: 'Select pdf', editPdfFile: undefined })
+        }
+    }
+
+    onBtnEditSpecificationFile = (e) => {
+        console.log('gambar', e.target.files[0])
+        if (e.target.files[0]) {
+            this.setState({ editSpecificationFileName: e.target.files[0].name, editSpecificationFile: e.target.files[0] })
+            var preview = document.getElementById('specedit')
+            preview.src = URL.createObjectURL(e.target.files[0])
+        } else {
+            this.setState({ editSpecificationFileName: 'Select Image', editSpecificationFile: undefined })
+        }
+    }
+
     onBtnEditImageFile = (e) => {
         console.log('gambar', e.target.files[0])
         if (e.target.files[0]) {
@@ -83,6 +102,9 @@ class AdminHomepage extends Component {
             this.setState({ editImageFileName: 'Select Image', editImageFile: undefined })
         }
     }
+
+
+
 
     isEdit = (e) => {
         this.setState({ isEdit: true })
@@ -103,12 +125,6 @@ class AdminHomepage extends Component {
         var description = this.refs.newDescription.value
         var categoryid = this.state.addTypeId
 
-        // if (this.state.addTypeId == 1) {
-        //     var categoryid = 1
-        // } else {
-        //     var categoryid = 2
-        // }
-
         if (addPdfFile && addImageFile && addSpecificationFile) {
             let formData = new FormData()
             let obj = {
@@ -124,7 +140,12 @@ class AdminHomepage extends Component {
             Axios.post(API_URL + '/products/postProduct', formData)
                 .then((res) => {
                     console.log(res.data)
-                    this.setState({ addImageFileName: 'select image', addImageFile: undefined, addPdfFileName: 'select pdf', addPdfFile: undefined, addSpecificationFileName: 'select image', addSpecificationFile: undefined })
+                    this.setState({ addImageFileName: 'select image', addImageFile: undefined, addPdfFileName: 'select pdf', addPdfFile: undefined, addSpecificationFileName: 'Select Image', addSpecificationFile: undefined })
+                    window.location.reload()
+                    // Swal.fire({
+                    //     icon: 'succes',
+                    //     text: 'sucessfully added a product'
+                    // })
                     this.getProducts()
                 })
                 .catch((err) => {
@@ -140,153 +161,91 @@ class AdminHomepage extends Component {
         }
     }
 
+    onChangeEditSelectType = (e) => {
+        console.log(parseInt(e.target.value))
+        this.setState({ editTypeId: parseInt(e.target.value) })
+    }
+
     onChangeSelectType = (e) => {
         this.setState({ addTypeId: parseInt(e.target.value) })
     }
 
     addTypeDropdown = () => {
         return (
-            //     <MDBDropdown>
-            //     <MDBDropdownToggle caret color="light">
-            //       type
-            //     </MDBDropdownToggle>
-            //     <MDBDropdownMenu basic>
-            //       <MDBDropdownItem>UPS</MDBDropdownItem>
-            //       <MDBDropdownItem>Battery</MDBDropdownItem>
-            //       {/* <MDBDropdownItem>Something else here</MDBDropdownItem>
-            //       <MDBDropdownItem divider />
-            //       <MDBDropdownItem>Separated link</MDBDropdownItem> */}
-            //     </MDBDropdownMenu>
-            //   </MDBDropdown>
             <select
                 className="form-control form-control-sm"
-                value = {this.state.addTypeId}
+                value={this.state.addTypeId}
                 onChange={this.onChangeSelectType}
             >
                 <option value={0}>type</option>
                 <option value={1}>UPS</option>
                 <option value={2}>Battery</option>
-                {/* {findRenderedComponentWithType()} */}
             </select>
         )
     }
 
-    // addProduct = async () => {
-    //     var name = this.refs.newName.value
-    //     var description = this.refs.newDescription.value
-    //     // var categoryid = this.refs.newType.value
-    //     // var specification = this.refs.specification.value
-    //     // var imagepath = this.refs.imagepath.value
-    //     // var pdf = this.refs.pdf.value
-
-    //     if (this.refs.newType.value == 'UPS') {
-    //         var categoryid = 1
-    //     } else {
-    //         var categoryid = 2
-    //     }
-
-    //     var body = {
-    //         name: name,
-    //         description: description,
-    //         specification: "asu",
-    //         imagepath: "asu",
-    //         pdf: "asu",
-    //         categoryid: categoryid,
-    //         status: "show"
-    //     }
-
-    //     if (name && description && categoryid) {
-    //         try {
-    //             var res = await Axios.post(API_URL + '/products/postProduct', body)
-    //             console.log(res.data)
-    //             this.getProducts()
-
-    //         } catch (e) {
-    //             console.log(e)
-    //         }
-    //     }
-    // }
+    editTypeDropdown = () => {
+        return (
+            <select
+                className="form-control form-control-sm"
+                value={this.state.editTypeId}
+                onChange={this.onChangeEditSelectType}
+            >
+                <option value={0}>type</option>
+                <option value={1}>UPS</option>
+                <option value={2}>Battery</option>
+            </select>
+        )
+    }
 
     editProduct = (id) => {
         this.setState({ selectedId: id })
     }
 
     cancelEdit = () => {
-        // if (this.state.isEdit) {
-        //     const swalWithBootstrapButtons = Swal.mixin({
-        //         customClass: {
-        //             confirmButton: 'btn btn-success',
-        //             cancelButton: 'btn btn-danger'
-        //         },
-        //         buttonsStyling: false
-        //     })
-
-        //     swalWithBootstrapButtons.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Yes, delete it!',
-        //         cancelButtonText: 'No, cancel!',
-        //         reverseButtons: true
-        //     }).then((result) => {
-        //         if (result.value) {
-        //             swalWithBootstrapButtons.fire(
-        //                 'Deleted!',
-        //                 'Your file has been deleted.',
-        //                 'success'
-        //             )
-        //         } else if (
-        //             /* Read more about handling dismissals below */
-        //             result.dismiss === Swal.DismissReason.cancel
-        //         ) {
-        //             swalWithBootstrapButtons.fire(
-        //                 'Cancelled',
-        //                 'Your imaginary file is safe :)',
-        //                 'error'
-        //             )
-        //         }
-        //     })
-        // }
-        this.setState({ selectedId: null, editImageFileName: 'Select Image', editImageFile: undefined })
+        this.setState({ selectedId: null, editImageFileName: 'Select Image', editImageFile: undefined, editPdfFileName: 'Select PDF' })
     }
-
+    
     submitEdit = (id) => {
-
-        let { addImageFile } = this.state
-        let formData = new FormData()
+        
+        let { editImageFile, editPdfFile, editSpecificationFile } = this.state
         let obj = {}
-
-        if (this.refs.editName.value == '' || this.refs.editType.value == '' || this.refs.editDescription.value == '') {
+        let formData = new FormData()
+        
+        if (this.refs.editName.value == '' || this.state.editTypeId == undefined || this.refs.editDescription.value == '') {
             Swal.fire({
                 icon: 'error',
                 title: 'error',
                 text: 'please fill in all the fields.',
                 timer: '5000'
             })
-        } else if (addImageFile) { //kalo ada foto baru
-            if (this.refs.type.value == 'UPS') {
-                var categoryid = 1
-            } else {
-                var categoryid = 2
-            }
+        } 
+        else if (editImageFile || editPdfFile || editSpecificationFile) { //kalo ada foto baru
             obj = {
-                name: this.refs.newName.value,
-                description: this.refs.newDescription.value,
-                categoryid: categoryid,
+                name: this.refs.editName.value,
+                description: this.refs.editDescription.value,
+                categoryid: this.state.editTypeId,
             }
-            formData.append('image', addImageFile)
-        } else { //kalo ga ad foto baru
+            console.log(editImageFile)
+            console.log(editPdfFile)
+            console.log(editSpecificationFile)
+            formData.append('image', editImageFile)
+            formData.append('pdf', editPdfFile)
+            formData.append('specification', editSpecificationFile)
+        } 
+        else { //kalo ga ad foto baru
             obj = {
-                name: this.refs.newName.value,
-                description: this.refs.newDescription.value,
-                categoryid: categoryid,
+                name: this.refs.editName.value,
+                description: this.refs.editDescription.value,
+                categoryid: this.state.editTypeId,
             }
         }
+        console.log(obj)
         formData.append('data', JSON.stringify(obj))
+        console.log(formData)
         Axios.post(API_URL + `/products/editProduct?id=${id}`, formData)
             .then((res) => {
-                this.setState({ addImageFileName: 'select image', addImageFile: undefined, selectedId: null })
+                this.setState({ editImageFileName: 'Select Image', editImageFile: undefined, selectedId: null })
                 this.getProducts()
             })
             .catch((err) => { console.log(err) })
@@ -348,18 +307,13 @@ class AdminHomepage extends Component {
                         <td>{index + 1}</td>
                         <td><input type="text" ref="editName" defaultValue={val.name} style={{ width: "15vh" }} onChange={this.isEdit} /></td>
                         <td>
-                            {val.categoryid == 1
-                                ?
-                                <input type="text" ref="editType" defaultValue="UPS" style={{ width: "10vh" }} />
-                                :
-                                <input type="text" ref="editType" defaultValue="Battery" style={{ width: "10vh" }} />
-                            }
+                            {this.editTypeDropdown()}
                         </td>
                         <td><input type="text" ref="editDescription" defaultValue={val.description} style={{ width: "20vh" }} /></td>
                         <td>
                             <form>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnEditImageFile} />
+                                    <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnEditSpecificationFile} />
                                     <label class="custom-file-label" for="customFileEdit">{this.state.editSpecificationFileName}</label>
                                 </div>
                             </form>
@@ -377,7 +331,7 @@ class AdminHomepage extends Component {
                         <td>
                             <form>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnAddPdfFile} />
+                                    <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnEditPdfFile} />
                                     <label class="custom-file-label" for="customFileEdit">{this.state.editPdfFileName}</label>
                                 </div>
                             </form>
@@ -452,8 +406,8 @@ class AdminHomepage extends Component {
                             <tfoot style={{ backgroundColor: "rgba(52, 52, 52, 0.4)" }}>
                                 <tr>
                                     <td>
-                                        <AddIcon style={{color: '#fff', fontSize: '30px'}}/></td>
-                                    <td style={{width: '13vh'}}><input type="text" className="form-control" ref="newName" /></td>
+                                        <AddIcon style={{ color: '#fff', fontSize: '30px' }} /></td>
+                                    <td style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" /></td>
                                     <td style={{ width: '10vh' }}>
                                         {/* <input type="text" className="form-control" ref="newType" /> */}
                                         {/* TODO: CHANGE INTO DROPDOWN */}
