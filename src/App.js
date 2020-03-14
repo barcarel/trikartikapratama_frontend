@@ -42,10 +42,7 @@ class App extends Component {
             ?
             <Route path='/adminhomepage' component={AdminHomepage} />
             :
-            <div>
-              <Route path='/userprofile' component={UserProfile} />
-              <Route path='*' component={Notfound} />
-            </div>
+            <Route path='/userprofile' component={UserProfile} />
           }
           <Route path='/adminproducts' component={AdminProducts} />
           <Route path='*' component={Notfound} />

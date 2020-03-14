@@ -3,10 +3,13 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import {
     MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-    MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBBtn
+    MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBBtn, MDBNav
 } from "mdbreact";
 import { logout } from '../redux/action'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import LockIcon from '@material-ui/icons/Lock';
+import PersonIcon from '@material-ui/icons/Person';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
@@ -75,22 +78,38 @@ class MenuNavBar extends Component {
                                             </MDBNavItem> */}
                                             <MDBDropdownToggle nav caret>
                                                 <div className="d-none d-md-inline" style={{ color: '#fff' }}>
-                                                    {this.props.username}
+                                                    welcome, {this.props.username}
                                                     &nbsp;
                                                     <AccountCircleIcon />
                                                 </div>
                                             </MDBDropdownToggle>
                                             <MDBDropdownMenu right className="dropdown-default">
-                                                <MDBDropdownItem header>Profile</MDBDropdownItem>
-                                                <Link to='/userprofile'>
+                                                <MDBDropdownItem header>
+                                                    <PersonIcon fontSize='small' />
+                                                    {/* &nbsp; */}
+                                                    Profile
+                                                    </MDBDropdownItem>
+                                                <MDBNavLink to='/userprofile'>
                                                     <MDBDropdownItem>View profile</MDBDropdownItem>
-                                                </Link>
+                                                </MDBNavLink>
                                                 <MDBDropdownItem>Edit profile</MDBDropdownItem>
                                                 <MDBDropdownItem divider />
-                                                <MDBDropdownItem header>Account</MDBDropdownItem>
-                                                <MDBDropdownItem >Change password</MDBDropdownItem>
+                                                <MDBDropdownItem header>
+                                                    <LockIcon fontSize='small'/>
+                                                {/* &nbsp;  */}
+                                                Account
+                                                </MDBDropdownItem>
+                                                <MDBDropdownItem >
+                                                    Change password
+                                                    </MDBDropdownItem>
                                                 <MDBDropdownItem divider />
-                                                <MDBDropdownItem onClick={this.onBtnLogOut}>log out</MDBDropdownItem>
+                                                <MDBDropdownItem header>Transaction</MDBDropdownItem>
+                                                <MDBDropdownItem >History</MDBDropdownItem>
+                                                <MDBDropdownItem divider />
+                                                <MDBDropdownItem onClick={this.onBtnLogOut}>
+                                                    <ExitToAppIcon />
+                                                    log out
+                                                    </MDBDropdownItem>
                                             </MDBDropdownMenu>
                                         </div>
                                         :
