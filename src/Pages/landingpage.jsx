@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from '../Components/Jumbotron';
 import Carousel from '../Components/Carousel';
 import Header from '../Components/Header'
-import NavBarMenu from '../Components/NavBarmenu';
+import MenuNavBar from '../Components/MenuNavBar';
 import Footer from '../Components/Footer'
 
 class landingpage extends Component {
@@ -21,7 +21,7 @@ class landingpage extends Component {
         return (
             <div>
                 <Header />
-                <NavBarMenu />
+                <MenuNavBar />
                 <div className="body">
                     <Jumbotron />
                     <div className="latest-products">

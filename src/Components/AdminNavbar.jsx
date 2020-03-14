@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../redux/action'
-import {Link, Redirect} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+
+import HomeIcon from '@material-ui/icons/Home';
+
 
 class AdminNavbar extends Component {
 
@@ -21,8 +24,11 @@ class AdminNavbar extends Component {
                             <a href="#battery">Battery</a>
                         </div> */}
                     <div className="float-right mr-5">
+                        <Link to='/' className="mr-5">
+                            <HomeIcon /> View website
+                        </Link>
                         <Link to='/adminlogin'>
-                        <a onClick={this.onBtnLogOut}>log out</a>
+                            <a onClick={this.onBtnLogOut}>log out</a>
                         </Link>
                     </div>
                 </nav>

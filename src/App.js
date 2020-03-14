@@ -18,6 +18,7 @@ import AdminHomepage from './Pages/AdminHomepage';
 import AdminProducts from './Pages/AdminProducts';
 import Register from './Pages/Register';
 import UserLogin from './Pages/UserLogin';
+import UserProfile from './Pages/UserProfile';
 
 class App extends Component {
 
@@ -37,11 +38,14 @@ class App extends Component {
           <Route path='/userlogin' component={UserLogin} />
           <Route path='/productdetail' component={ProductDetail} />
           <Route path='/adminlogin' component={Admin} />
-          {this.props.token
-          ?
-          <Route path='/adminhomepage' component={AdminHomepage} />
-          :
-          <Route path='*' component={Notfound} />
+          {this.props.role == 'admin'
+            ?
+            <Route path='/adminhomepage' component={AdminHomepage} />
+            :
+            <div>
+              <Route path='/userprofile' component={UserProfile} />
+              <Route path='*' component={Notfound} />
+            </div>
           }
           <Route path='/adminproducts' component={AdminProducts} />
           <Route path='*' component={Notfound} />
@@ -51,8 +55,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({user}) => {
-  return{
+const mapStateToProps = ({ user }) => {
+  return {
     ...user
   }
 }

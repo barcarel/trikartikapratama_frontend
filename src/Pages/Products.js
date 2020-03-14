@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../Components/Header'
-import NavBarMenu from '../Components/NavBarmenu';
+import MenuNavBar from '../Components/MenuNavBar';
 import Axios from 'axios';
 import { API_URL } from '../support/API_URL';
 import Footer from '../Components/Footer'
@@ -102,7 +102,7 @@ class Produts extends Component {
         return (
             <div>
                 <Header />
-                <NavBarMenu />
+                <MenuNavBar />
                 <div className="body">
                     {/* <div className="container"> */}
                     {/* <div class="p-5"> */}

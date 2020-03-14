@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Header from '../Components/Header'
-import NavBarMenu from '../Components/NavBarmenu';
+import MenuNavBar from '../Components/MenuNavBar';
 import Axios from 'axios';
 import { API_URL } from '../support/API_URL'
 import Footer from '../Components/Footer'
@@ -33,7 +33,7 @@ class ProductDetail extends Component {
             <div>
                 {/* {console.log(this.state.data)} */}
                 <Header />
-                <NavBarMenu />
+                <MenuNavBar />
                 <div style={{ paddingBottom: "2%" }}>
                     <div className="container">
                         <div style={{ marginTop: "5%" }}>

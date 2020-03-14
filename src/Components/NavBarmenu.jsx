@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../redux/action'
 import UserProfileDropdown from '../Components/UserProfileDropdown'
+import MenuNavBar from '../Components/MenuNavBar'
 
 
 class NavBarMenu extends Component {
@@ -21,7 +22,8 @@ class NavBarMenu extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-menu navbar-expand-lg shift">
+                {/* <MenuNavBar /> */}
+                {/* <nav className="navbar navbar-menu navbar-expand-lg shift">
                     <div className="container">
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
@@ -62,11 +64,13 @@ class NavBarMenu extends Component {
                                 </li>
 
                             </ul>
-                            <span className="navbar-text white-text">
+                            <div>
                                 {this.props.username
                                     ?
-                                    // <MDBBtn color="red darken-4" onClick={this.onBtnLogOut}>log out</MDBBtn>
-                                    <UserProfileDropdown />
+                                    <span style={{width: '20vh'}}>
+                                        <ShoppingCartIcon />
+                                        <UserProfileDropdown />
+                                    </span>
                                     :
                                     <div>
                                         <Link to='/register'>
@@ -77,10 +81,10 @@ class NavBarMenu extends Component {
                                         </Link>
                                     </div>
                                 }
-                            </span>
+                            </div>
                         </div>
                     </div>
-                </nav>
+                </nav> */}
             </div>
         )
     }
@@ -93,4 +97,4 @@ const mapStateToProps = ({ user }) => {
 }
 
 
-export default connect(mapStateToProps, {logout})(NavBarMenu);
+export default connect(mapStateToProps, { logout })(NavBarMenu);

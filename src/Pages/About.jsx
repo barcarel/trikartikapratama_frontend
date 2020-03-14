@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Row, Col } from 'reactstrap';
 import Header from '../Components/Header'
-import NavBarMenu from '../Components/NavBarmenu';
+import MenuNavBar from '../Components/MenuNavBar';
 import Footer from '../Components/Footer'
 
 class About extends Component {
@@ -13,7 +13,7 @@ class About extends Component {
         return (
             <div>
                 <Header />
-                <NavBarMenu />
+                <MenuNavBar />
                 <div className="body">
                     <Jumbotron className="jumbotron-companyprofile">
                         <h2 className="display-5">Company Profile</h2>

@@ -4,7 +4,7 @@ import CallTwoToneIcon from '@material-ui/icons/CallTwoTone';
 import EmailTwoToneIcon from '@material-ui/icons/EmailTwoTone';
 import LocationOnTwoToneIcon from '@material-ui/icons/LocationOnTwoTone';
 import Header from '../Components/Header'
-import NavBarMenu from '../Components/NavBarmenu';
+import MenuNavBar from '../Components/MenuNavBar';
 import Swal from 'sweetalert2';
 import Axios from 'axios';
 import { API_URL } from '../support/API_URL'
@@ -48,7 +48,7 @@ class ContactUs extends Component {
         return (
             <div>
                 <Header />
-                <NavBarMenu />
+                <MenuNavBar />
                 <div className="body">
                     <h1 style={{ textAlign: "center", fontSize: "45px", paddingTop: "3%", fontWeight: "bolder" }}>Get in touch</h1>
                     <hr className="style1" />

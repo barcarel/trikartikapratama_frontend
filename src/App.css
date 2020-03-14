@@ -32,14 +32,14 @@
 .navbar {
   /* min-height: 4vh; */
   background-color: #B23833;
-  color: white;
+  color: white !important;
   /* -webkit-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
   -moz-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
   box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47); */
 }
 
 .navbar-menu {
-  max-height:  7vh !important;
+  max-height: 7vh !important;
   background-color: #B23833;
   color: white;
   /* -webkit-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
@@ -51,7 +51,7 @@
   background-color: black;
 }
 
-.user-register-btn{
+.user-register-btn {
   background-color: '#fff' !important;
   color: #3F51B5 !important;
   border: 2px solid #3F51B5 !important;
@@ -168,13 +168,14 @@ a.menu-item{
 .nav-menu {
   color: white !important;
   opacity: 0.9;
+  /* margin-right: 7vh; */
 }
 
-.nav-menu:hover {
+/* .nav-menu:hover {
   background-color: white;
   color: #B23833 !important;
   border-radius: 3px;
-}
+} */
 
 .login-dropdown {
   background-color: #B23833 !important;
@@ -419,12 +420,12 @@ box-shadow: 0px 0px 65px 6px rgba(196,196,196,0.82);
 
 .register-navbar {
   background: rgb(0, 0, 0) !important;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 35%, rgba(255, 255, 255, 0.8912158613445378) 93% )!important;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 35%, rgba(255, 255, 255, 0.8912158613445378) 93%)!important;
 }
 
-.userlogin-navbar{
-  background: rgb(255,255,255);
-background: linear-gradient(90deg, rgba(255,255,255,0.8912158613445378) 35%, rgba(0,0,0,1) 93%);
+.userlogin-navbar {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8912158613445378) 35%, rgba(0, 0, 0, 1) 93%);
 }
 
 /*----------------- 404 NOT FOUND----------------- */
