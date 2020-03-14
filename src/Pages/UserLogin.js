@@ -93,7 +93,7 @@ class UserLogin extends Component {
                             </div>
                         </div>
                         <div className="col-8">
-                            <img width="100%" height="101%" style={{ objectFit: 'cover' }} alt="bgRegister" src={require('../img/websiteimg/bgRegister.jpg')} />
+                            <img width="100%" height="100%" style={{ objectFit: 'cover' }} alt="bgRegister" src={require('../img/websiteimg/bgRegister.jpg')} />
                         </div>
                     </div>
                 </div>

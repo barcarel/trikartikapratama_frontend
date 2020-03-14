@@ -19,6 +19,7 @@ import AdminProducts from './Pages/AdminProducts';
 import Register from './Pages/Register';
 import UserLogin from './Pages/UserLogin';
 import UserProfile from './Pages/UserProfile';
+import UserAccount from './Pages/UserAccount';
 
 class App extends Component {
 
@@ -42,7 +43,15 @@ class App extends Component {
             ?
             <Route path='/adminhomepage' component={AdminHomepage} />
             :
-            <Route path='/userprofile' component={UserProfile} />
+
+            this.props.role == 'user'
+              ?
+              <>
+                <Route path='/userprofile' component={UserProfile} />
+                <Route path='/useraccount' component={UserAccount} />
+              </>
+              :
+              <Route path='*' component={Notfound} />
           }
           <Route path='/adminproducts' component={AdminProducts} />
           <Route path='*' component={Notfound} />

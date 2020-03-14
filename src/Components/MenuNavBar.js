@@ -7,6 +7,7 @@ import {
 } from "mdbreact";
 import { logout } from '../redux/action'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
@@ -84,9 +85,8 @@ class MenuNavBar extends Component {
                                                 </div>
                                             </MDBDropdownToggle>
                                             <MDBDropdownMenu right className="dropdown-default">
-                                                <MDBDropdownItem header>
+                                                {/* <MDBDropdownItem header>
                                                     <PersonIcon fontSize='small' />
-                                                    {/* &nbsp; */}
                                                     Profile
                                                     </MDBDropdownItem>
                                                 <MDBNavLink to='/userprofile'>
@@ -96,7 +96,6 @@ class MenuNavBar extends Component {
                                                 <MDBDropdownItem divider />
                                                 <MDBDropdownItem header>
                                                     <LockIcon fontSize='small'/>
-                                                {/* &nbsp;  */}
                                                 Account
                                                 </MDBDropdownItem>
                                                 <MDBDropdownItem >
@@ -104,7 +103,13 @@ class MenuNavBar extends Component {
                                                     </MDBDropdownItem>
                                                 <MDBDropdownItem divider />
                                                 <MDBDropdownItem header>Transaction</MDBDropdownItem>
-                                                <MDBDropdownItem >History</MDBDropdownItem>
+                                                <MDBDropdownItem >History</MDBDropdownItem> */}
+                                                <MDBDropdownItem>
+                                                    <MDBNavLink to='/userprofile'>
+                                                        <SettingsIcon />
+                                                    Settings
+                                                </MDBNavLink>
+                                                </MDBDropdownItem>
                                                 <MDBDropdownItem divider />
                                                 <MDBDropdownItem onClick={this.onBtnLogOut}>
                                                     <ExitToAppIcon />
