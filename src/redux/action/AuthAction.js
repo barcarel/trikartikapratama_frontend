@@ -89,3 +89,29 @@ export const register = (username, password, role) => {
             })
     }
 }
+
+export const userUpdateDetail = (id, firstname, lastname, company) => {
+    // console.log(id, firstname, lastname, company)
+    return (dispatch) => {
+        Axios.post(API_URL + `/user/userupdatedetail`, {
+            id,
+            firstname,
+            lastname,
+            company
+        })
+            .then((res) => {
+                console.log('MASUK PAK EKO')
+                dispatch({
+                    type: 'USER_UPDATEINFO_SUCCESS',
+                    payload: res.data
+                })
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'error updating information'
+                })
+                dispatch({ type: 'USER_UPDATEINFO_FAIL' })
+            })
+    }
+}

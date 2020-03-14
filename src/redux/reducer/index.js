@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import  authReducer from './AuthReducer'
+import UserUpdateInfoReducer from './UserUpdateInfoReducer'
 
 export default combineReducers({
-    user: authReducer
+    user: authReducer,
+    userupdateinfo: UserUpdateInfoReducer 
 })

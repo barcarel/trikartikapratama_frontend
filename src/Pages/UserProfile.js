@@ -3,13 +3,23 @@ import SideNavigation from '../Components/SideNavigation'
 import { MDBInput, MDBContainer, MDBRow, MDBBtn } from 'mdbreact'
 import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
+import Swal from 'sweetalert2'
+import { userUpdateDetail } from '../redux/action'
+import { connect } from 'react-redux'
 
 class UserProfile extends Component {
 
     onBtnSave = () => {
         var firstname = this.firstName.value
         var lastname = this.lastName.value
-        var company  = this.company.value
+        var company = this.company.value
+        var id = this.props.id
+
+        this.props.userUpdateDetail(id, firstname, lastname, company)
+        // Swal.fire({
+        //     icon: 'success',
+        //     text: 'succesfully updated information'
+        // })
     }
 
     render() {
@@ -20,7 +30,7 @@ class UserProfile extends Component {
                 <SideNavigation />
                 <main id="content" className="p-5">
                     <div className="text-center" style={{ marginLeft: '30vh', marginRight: '30vh' }}>
-                        <h1>Profile Page</h1>
+                        <h1>Profile setting</h1>
                         <div className="mt-5">
                             <MDBContainer>
                                 <MDBInput label="First Name" inputRef={(firstName) => this.firstName = firstName} />
@@ -36,5 +46,10 @@ class UserProfile extends Component {
         );
     }
 }
+const mapStateToProps = ({ user }) => {
+    return {
+        ...user
+    }
+}
 
-export default UserProfile;
+export default connect(mapStateToProps, { userUpdateDetail })(UserProfile);
