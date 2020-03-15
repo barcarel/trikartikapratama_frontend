@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     id: 0,
     firstname: '',
     lastname: '',
+    phoneno: '',
     company: ''
 }
 

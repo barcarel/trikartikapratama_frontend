@@ -90,13 +90,14 @@ export const register = (username, password, role) => {
     }
 }
 
-export const userUpdateDetail = (id, firstname, lastname, company) => {
+export const userUpdateDetail = (id, firstname, lastname, phoneno, company) => {
     // console.log(id, firstname, lastname, company)
     return (dispatch) => {
         Axios.post(API_URL + `/user/userupdatedetail`, {
             id,
             firstname,
             lastname,
+            phoneno,
             company
         })
             .then((res) => {
@@ -105,8 +106,13 @@ export const userUpdateDetail = (id, firstname, lastname, company) => {
                     type: 'USER_UPDATEINFO_SUCCESS',
                     payload: res.data
                 })
+                Swal.fire({
+                    icon: 'success',
+                    text: 'succesfully updated information'
+                })
             })
             .catch((err) => {
+                // console.log(err)
                 Swal.fire({
                     icon: 'error',
                     text: 'error updating information'
