@@ -101,9 +101,9 @@ export const userUpdateDetail = (id, firstname, lastname, phoneno, company) => {
             company
         })
             .then((res) => {
-                console.log('MASUK PAK EKO')
+                localStorage.setItem('token',res.data)
                 dispatch({
-                    type: 'USER_UPDATEINFO_SUCCESS',
+                    type: 'USER_FULLPROFILE',
                     payload: res.data
                 })
                 Swal.fire({
@@ -118,6 +118,30 @@ export const userUpdateDetail = (id, firstname, lastname, phoneno, company) => {
                     text: 'error updating information'
                 })
                 dispatch({ type: 'USER_UPDATEINFO_FAIL' })
+            })
+    }
+}
+
+export const changePassword = (id, oldpassword, newpassword, confirmnewpassword) => {
+    return (dispatch) => {
+        Axios.put(API_URL + `/user/userchangepassword?id=${id}`, {
+            id,
+            oldpassword,
+            newpassword,
+            confirmnewpassword
+        })
+            .then((res) => {
+                dispatch({
+                    type: 'USER_CHANGEPASSWORD_SUCCESS',
+                    payload: res.data
+                })
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'error change password'
+                })
+                dispatch({ type: 'USER_CHANGEPASSWORD_FAIL' })
             })
     }
 }

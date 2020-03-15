@@ -5,6 +5,7 @@ import SideNavigation from '../Components/SideNavigation'
 import Swal from 'sweetalert2'
 import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
+import {changePassword} from '../redux/action'
 
 class UserAccount extends Component {
 
@@ -20,16 +21,24 @@ class UserAccount extends Component {
         var oldpassword = this.oldPassword.value
         var newpassword = this.newPassword.value
         var confirmnewpassword = this.confirmNewPassword.value
+        var id  = this.props.id
 
-        if(newpassword != confirmnewpassword){
+        console.log(id, oldpassword, newpassword, confirmnewpassword)
+
+        if(oldpassword && newpassword && confirmnewpassword){
+            if(newpassword != confirmnewpassword){
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'invalid confirm password'
+                })
+            }
+            this.props.changePassword(id, oldpassword, newpassword, confirmnewpassword)
+        } else {
             Swal.fire({
-                icon: 'warning',
-                text: 'invalid confirm password'
+                icon: 'error',
+                text: 'please input all fields'
             })
         }
-
-        console.log(oldpassword, newpassword, confirmnewpassword)
-
     }
 
     render() {
@@ -96,4 +105,4 @@ const mapStateToProps = ({ user }) => {
     }
 }
 
-export default connect(mapStateToProps)(UserAccount);
+export default connect(mapStateToProps, {changePassword})(UserAccount);

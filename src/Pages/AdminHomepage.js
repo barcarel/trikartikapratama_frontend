@@ -249,45 +249,6 @@ class AdminHomepage extends Component {
                 this.getProducts()
             })
             .catch((err) => { console.log(err) })
-
-        //TODO: Tanya baron kenapa ga langsung update di web nya
-        // var name = this.refs.name.value
-        // var description = this.refs.description.value
-        // // console.log(name)
-        // // console.log(description)
-        // // var specification = this.refs.specification.value
-        // // var imagepath = this.refs.imagepath.value
-        // // var pdf = this.refs.pdf.value
-
-        // if (this.refs.type.value == 'UPS') {
-        //     var categoryid = 1
-        // } else {
-        //     var categoryid = 2
-        // }
-
-        // var objEdit = {
-        //     name: name,
-        //     description: description,
-        //     specification: "asu",
-        //     imagepath: "asu",
-        //     pdf: "asu",
-        //     categoryid: categoryid,
-        //     status: "show"
-        // }
-
-        // if (name && description) {
-        //     try {
-        //         console.log("Edit")
-        //         Axios.post(API_URL + `/products/editProduct?id=${id}`, objEdit)
-        //             .then((res) => {
-        //                 console.log(res.data)
-        //                 this.getProducts()
-        //                 this.setState({ selectedId: null })
-        //             }).catch((err) => console.log(err))
-        //     } catch (err) {
-        //         console.log(err)
-        //     }
-        // }
     }
 
     deleteProduct = (id, imagepath, pdf, specification) => {
