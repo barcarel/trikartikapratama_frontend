@@ -17,6 +17,10 @@ class UserAccount extends Component {
         this.setState({ isChangePass: !this.state.isChangePass })
     }
 
+    onBtnCancel = () => {
+        this.setState({isChangePass: !this.state.isChangePass})
+    }
+
     onBtnSave = () => {
         var oldpassword = this.oldPassword.value
         var newpassword = this.newPassword.value
@@ -58,7 +62,7 @@ class UserAccount extends Component {
                             <MDBBtn outline color='blue darken-4' onClick={this.onBtnSave}>save</MDBBtn> */}
                                 <small className="text-muted mb-5">Account information</small>
                                 <div className="row pt-3 mt-3">
-                                    <div className="col-auto text-muted">
+                                    <div className="col-3 text-muted">
                                         Username
                                     </div>
                                     <div className="col-8" style={{ textAlign: 'left' }}>
@@ -81,7 +85,8 @@ class UserAccount extends Component {
                                                 <MDBInput label="Old password" type="password" inputRef={(oldPassword) => this.oldPassword = oldPassword} />
                                                 <MDBInput label="New password" type="password" inputRef={(newPassword) => this.newPassword = newPassword} />
                                                 <MDBInput label="Confirm new password" type="password" inputRef={(confirmNewPassword) => this.confirmNewPassword = confirmNewPassword} />
-                                                <MDBBtn outline color='blue darken-4' onClick={this.onBtnSave}>save</MDBBtn>
+                                                <MDBBtn outline color='blue darken-4' onClick={this.onBtnSave}>Change password</MDBBtn>
+                                                <MDBBtn outline color='stylish-color-dark' onClick={this.onBtnCancel}>cancel</MDBBtn>
                                             </div>
                                         </div>
                                     </div>
