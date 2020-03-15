@@ -42,6 +42,7 @@
   max-height: 7vh !important;
   background-color: #B23833;
   color: white;
+
   /* -webkit-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
   -moz-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
   box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47); */
@@ -416,6 +417,17 @@ box-shadow: 0px 0px 65px 6px rgba(196,196,196,0.82);
 
 .adminproducts .card-title {
   font-size: 1vh;
+}
+
+table{
+  position: relative;
+  border-collapse: collapse; 
+}
+th{
+  background: white;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
 .register-navbar {

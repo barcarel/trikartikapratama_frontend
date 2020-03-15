@@ -185,15 +185,6 @@ class AdminHomepage extends Component {
     }
 
     editTypeDropdown = (categoryid) => {
-        var catid = ''
-        {
-            categoryid == 1
-            ?
-            catid = 'UPS'
-            :
-            catid = 'Battery'
-
-        }
         return (
             <select
                 className="form-control form-control-sm"
@@ -231,7 +222,7 @@ class AdminHomepage extends Component {
         let obj = {}
         let formData = new FormData()
 
-        if (this.refs.editName.value == '' || this.state.editTypeId == undefined || this.refs.editDescription.value == '') {
+        if (this.refs.editName.value == '' && this.state.editTypeId == undefined && this.refs.editDescription.value == '') {
             Swal.fire({
                 icon: 'error',
                 title: 'error',
@@ -289,7 +280,7 @@ class AdminHomepage extends Component {
                         <td style={{ width: '12vh' }}>
                             {this.editTypeDropdown(val.categoryid)}
                         </td>
-                        <td><textarea rows="5" type="text" ref="editDescription" defaultValue={val.description} style={{ width: "30vh" }} /></td>
+                        <td style={{ width: "25%" }}><textarea style={{width: '100%'}} rows="20" type="text" ref="editDescription" defaultValue={val.description}  /></td>
                         <td style={{ width: '30vh' }}>
                             <form>
                                 <div class="custom-file">
@@ -337,7 +328,7 @@ class AdminHomepage extends Component {
                                 "Battery"
                             }
                         </td>
-                        <td>{val.description}</td>
+                        <td style={{width: "25%", textAlign: 'justify'}}>{val.description}</td>
                         <td>
                             <img src={API_URL + val.specification} alt="specimage" style={{ width: "30vh" }} />
                         </td>

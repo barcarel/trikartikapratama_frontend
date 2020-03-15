@@ -21,6 +21,7 @@ import UserLogin from './Pages/UserLogin';
 import UserProfile from './Pages/UserProfile';
 import UserAccount from './Pages/UserAccount';
 import UserTransaction from './Pages/UserTransaction'
+import print from './Downloader/print'
 
 class App extends Component {
 
@@ -40,6 +41,7 @@ class App extends Component {
           <Route path='/userlogin' component={UserLogin} />
           <Route path='/productdetail' component={ProductDetail} />
           <Route path='/adminlogin' component={Admin} />
+          <Route path='/print' component={print} />
           {this.props.role == 'admin'
             ?
             <Route path='/adminhomepage' component={AdminHomepage} />

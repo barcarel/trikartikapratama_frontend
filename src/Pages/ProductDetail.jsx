@@ -7,6 +7,8 @@ import MenuNavBar from '../Components/MenuNavBar';
 import Axios from 'axios';
 import { API_URL } from '../support/API_URL'
 import Footer from '../Components/Footer'
+import { connect } from 'react-redux';
+import { createPdfFromHtml } from "../Downloader/logic";
 
 class ProductDetail extends Component {
 
@@ -28,6 +30,10 @@ class ProductDetail extends Component {
             .catch((err) => console.log(err))
     }
 
+    handleClick = () => {
+        createPdfFromHtml(this.printContent);
+    };
+
     render() {
         return (
             <div>
@@ -47,16 +53,20 @@ class ProductDetail extends Component {
                             <div className="float-right" style={{ color: "#4382C7" }}>
                                 {/* <a href={'../img/products/ups/SentinelPowerSPT/sentinelpower.jpg'} type="application/jpg" target="_blank" download> */}
                                 {/* <a href="../img/products/specification_sentinelpower.png" download > */}
+                                {/* <div onClick={this.handleClick}> */}
                                 <GetAppIcon style={{ border: "1px solid", borderRadius: "100%" }} />
                                 &nbsp;
                                     download pdf
-                            {/* </a> */}
+                                    {/* </div> */}
+                                {/* </a> */}
                             </div>
                         </div>
                         <div className="productdetail text-center">
                             <h1 className="display-5" >{this.state.data[0].name}</h1>
                             <img className="card-img-top" style={{ maxWidth: "63vh" }} src={require('../img/products/ups/SentinelPowerSPT/sentinelpower.jpg')} />
-                            <div className="text-justify mt-3 mb-5" style={{ opacity: "0.8" }}>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Nulla quis lorem ut libero malesuada feugiat. Nulla porttitor accumsan tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Sed porttitor lectus nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Nulla quis lorem ut libero malesuada feugiat.</div>
+                            <div className="text-justify mt-3 mb-5" style={{ opacity: "0.8" }}>
+                            {this.state.data[0].description}
+                            </div>
                         </div>
                         <h5>Specifications</h5>
                         <br />
@@ -72,5 +82,7 @@ class ProductDetail extends Component {
         );
     }
 }
+
+
 
 export default ProductDetail;
