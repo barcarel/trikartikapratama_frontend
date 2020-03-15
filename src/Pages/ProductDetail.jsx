@@ -44,8 +44,9 @@ class ProductDetail extends Component {
                                     back to products
                         </span>
                             </Link>
-                            <div className="float-right" style={{ opacity: "", color: "#4382C7" }}>
-                                {/* <a href={'../img/products/ups/SentinelPowerSPT/sentinelpower.jpg'} target="_blank" download> */}
+                            <div className="float-right" style={{ color: "#4382C7" }}>
+                                {/* <a href={'../img/products/ups/SentinelPowerSPT/sentinelpower.jpg'} type="application/jpg" target="_blank" download> */}
+                                {/* <a href="../img/products/specification_sentinelpower.png" download > */}
                                 <GetAppIcon style={{ border: "1px solid", borderRadius: "100%" }} />
                                 &nbsp;
                                     download pdf

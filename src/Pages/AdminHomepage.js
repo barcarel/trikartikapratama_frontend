@@ -5,7 +5,7 @@ import AdminNavbar from '../Components/AdminNavbar'
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import { API_URL } from '../support/API_URL'
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBInput } from "mdbreact";
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBInput, MDBBtn } from "mdbreact";
 import AddIcon from '@material-ui/icons/Add';
 
 
@@ -184,16 +184,35 @@ class AdminHomepage extends Component {
         )
     }
 
-    editTypeDropdown = () => {
+    editTypeDropdown = (categoryid) => {
+        var catid = ''
+        {
+            categoryid == 1
+            ?
+            catid = 'UPS'
+            :
+            catid = 'Battery'
+
+        }
         return (
             <select
                 className="form-control form-control-sm"
                 value={this.state.editTypeId}
                 onChange={this.onChangeEditSelectType}
             >
-                <option value={0}>type</option>
-                <option value={1}>UPS</option>
-                <option value={2}>Battery</option>
+                {/* <option value={0}>{catid}</option> */}
+                {categoryid == 1
+                    ?
+                    <>
+                        <option value={1}>UPS</option>
+                        <option value={2}>Battery</option>
+                    </>
+                    :
+                    <>
+                        <option value={2}>Battery</option>
+                        <option value={1}>UPS</option>
+                    </>
+                }
             </select>
         )
     }
@@ -205,13 +224,13 @@ class AdminHomepage extends Component {
     cancelEdit = () => {
         this.setState({ selectedId: null, editImageFileName: 'Select Image', editImageFile: undefined, editPdfFileName: 'Select PDF' })
     }
-    
+
     submitEdit = (id) => {
-        
+
         let { editImageFile, editPdfFile, editSpecificationFile } = this.state
         let obj = {}
         let formData = new FormData()
-        
+
         if (this.refs.editName.value == '' || this.state.editTypeId == undefined || this.refs.editDescription.value == '') {
             Swal.fire({
                 icon: 'error',
@@ -219,7 +238,7 @@ class AdminHomepage extends Component {
                 text: 'please fill in all the fields.',
                 timer: '5000'
             })
-        } 
+        }
         else if (editImageFile || editPdfFile || editSpecificationFile) { //kalo ada foto baru
             obj = {
                 name: this.refs.editName.value,
@@ -232,7 +251,7 @@ class AdminHomepage extends Component {
             formData.append('image', editImageFile)
             formData.append('pdf', editPdfFile)
             formData.append('specification', editSpecificationFile)
-        } 
+        }
         else { //kalo ga ad foto baru
             obj = {
                 name: this.refs.editName.value,
@@ -266,12 +285,12 @@ class AdminHomepage extends Component {
                 return (
                     <tr key={val.id}>
                         <td>{index + 1}</td>
-                        <td><input type="text" ref="editName" defaultValue={val.name} style={{ width: "15vh" }} onChange={this.isEdit} /></td>
-                        <td>
-                            {this.editTypeDropdown()}
+                        <td><textarea type="text" ref="editName" defaultValue={val.name} onChange={this.isEdit} /></td>
+                        <td style={{ width: '12vh' }}>
+                            {this.editTypeDropdown(val.categoryid)}
                         </td>
-                        <td><input type="text" ref="editDescription" defaultValue={val.description} style={{ width: "20vh" }} /></td>
-                        <td>
+                        <td><textarea rows="5" type="text" ref="editDescription" defaultValue={val.description} style={{ width: "30vh" }} /></td>
+                        <td style={{ width: '30vh' }}>
                             <form>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnEditSpecificationFile} />
@@ -299,7 +318,7 @@ class AdminHomepage extends Component {
                             <p>{val.pdf}</p>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" onClick={this.cancelEdit}>cancel</button>
+                            <MDBBtn outline color="stylish-color-dark" onClick={this.cancelEdit}>cancel</MDBBtn>
                             &nbsp;
                         <button type="button" class="btn btn-success" onClick={() => this.submitEdit(val.id)}>submit</button>
                         </td>
@@ -309,7 +328,7 @@ class AdminHomepage extends Component {
                 return (
                     <tr key={val.id}>
                         <td>{index + 1}</td>
-                        <td>{val.name}</td>
+                        <td style={{ width: "16vh" }}>{val.name}</td>
                         <td>
                             {val.categoryid == 1
                                 ?

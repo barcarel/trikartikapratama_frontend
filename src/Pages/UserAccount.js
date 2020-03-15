@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MDBInput, MDBContainer, MDBRow, MDBBtn } from 'mdbreact'
-import SideNavigation from '../Components/SideNavigation'
 import Swal from 'sweetalert2'
+import {changePassword} from '../redux/action'
+import SideNavigation from '../Components/SideNavigation'
 import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
-import {changePassword} from '../redux/action'
+import Footer from '../Components/Footer'
 
 class UserAccount extends Component {
 
@@ -71,7 +72,7 @@ class UserAccount extends Component {
                                 </div>
                                 <div className="row pt-3 mt-3">
                                     <div className="col-auto d-inline" onClick={this.onPressChangePassword}>
-                                        <a href="#" style={{ textDecoration: 'underline' }}>Change password</a>
+                                        <a href="javascript:void(0)" style={{ textDecoration: 'underline' }}>Change password</a>
                                     </div>
                                 </div>
                                 {this.state.isChangePass
@@ -97,8 +98,8 @@ class UserAccount extends Component {
                             </MDBContainer>
                         </div>
                     </div>
-
                 </main>
+                <Footer />
             </div>
         );
     }

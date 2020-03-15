@@ -20,6 +20,7 @@ import Register from './Pages/Register';
 import UserLogin from './Pages/UserLogin';
 import UserProfile from './Pages/UserProfile';
 import UserAccount from './Pages/UserAccount';
+import UserTransaction from './Pages/UserTransaction'
 
 class App extends Component {
 
@@ -49,6 +50,7 @@ class App extends Component {
               <>
                 <Route path='/userprofile' component={UserProfile} />
                 <Route path='/useraccount' component={UserAccount} />
+                <Route path='/usertransaction' component={UserTransaction} />
               </>
               :
               <Route path='*' component={Notfound} />
