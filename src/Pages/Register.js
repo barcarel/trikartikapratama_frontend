@@ -63,7 +63,6 @@ class Register extends Component {
             <div>
                 {/* <NavBarMenu /> */}
                 {/* <div className="container"> */}
-                <div>
                     <div className="row">
                         <div className="col-8">
                             <div>
@@ -90,7 +89,7 @@ class Register extends Component {
                     </div>
                     <div className="row" style={{ height: '82vh' }}>
                         <div className="col-8">
-                            <img width="100%" height="100%" style={{ objectFit: 'cover' }} alt="bgRegister" src={require('../img/websiteimg/bgRegister.jpg')} />
+                            <img width="100%" height="102%" style={{ objectFit: 'cover' }} alt="bgRegister" src={require('../img/websiteimg/handshakebg.jpg')} />
                         </div>
                         <div className="col-4 pt-5">
                             <div className="p-5">
@@ -120,9 +119,7 @@ class Register extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
-            // </div>
         );
     }
 }

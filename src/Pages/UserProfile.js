@@ -7,6 +7,7 @@ import Footer from '../Components/Footer'
 import Swal from 'sweetalert2'
 import { userUpdateDetail } from '../redux/action'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 class UserProfile extends Component {
 

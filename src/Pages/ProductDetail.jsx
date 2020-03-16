@@ -9,16 +9,26 @@ import { API_URL } from '../support/API_URL'
 import Footer from '../Components/Footer'
 import { connect } from 'react-redux';
 import { createPdfFromHtml } from "../Downloader/logic";
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
+
 
 class ProductDetail extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: [
-                {}
-            ]
-        }
+    state = {
+        data: [
+            {}
+        ],
+        productqty: 0,
+        modal: false
+    }
+
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     componentDidMount() {
@@ -34,13 +44,40 @@ class ProductDetail extends Component {
         createPdfFromHtml(this.printContent);
     };
 
+    onClickMinus = () => {
+        if (this.state.productqty != 0) {
+            this.setState({ productqty: this.state.productqty - 1 })
+        }
+    }
+
+    onClickPlus = () => {
+        this.setState({ productqty: this.state.productqty + 1 })
+    }
+
+    // onChangeProductqtyInput = () => {
+    //     var inputvalue = this.productqtyInput.value
+    //     console.log('asds', inputvalue)
+    //     // console.log(e.target.value)
+    //     // this.setState({productqty: inputvalue})
+    // }
+
     render() {
         return (
             <div>
+                <MDBModal size="lg" isOpen={this.state.modal} toggle={this.toggle} centered>
+                    {/* <MDBModalHeader toggle={this.toggle}>MDBModal title</MDBModalHeader> */}
+                    <MDBModalBody>
+                        <img className="img-fluid" src={API_URL + this.state.data[0].specification} />
+                    </MDBModalBody>
+                    {/* <MDBModalFooter>
+                        <MDBBtn color="secondary" onClick={this.toggle}>Close</MDBBtn>
+                        <MDBBtn color="primary">Save changes</MDBBtn>
+                    </MDBModalFooter> */}
+                </MDBModal>
                 {/* {console.log(this.state.data)} */}
                 <Header />
                 <MenuNavBar />
-                <div style={{ paddingBottom: "2%" }}>
+                <div>
                     <div className="container">
                         <div style={{ marginTop: "5%" }}>
                             <Link to='/products'>
@@ -61,18 +98,51 @@ class ProductDetail extends Component {
                                 {/* </a> */}
                             </div>
                         </div>
-                        <div className="productdetail text-center">
-                            <h1 className="display-5" >{this.state.data[0].name}</h1>
-                            <img className="card-img-top" style={{ maxWidth: "63vh" }} src={require('../img/products/ups/SentinelPowerSPT/sentinelpower.jpg')} />
-                            <div className="text-justify mt-3 mb-5" style={{ opacity: "0.8" }}>
-                            {this.state.data[0].description}
+                        <h1 className="display-5 text-center mb-5" >{this.state.data[0].name}</h1>
+                        <div className="d-flex justify-content-center">
+                            <div>
+                                <img className="card-img-top" style={{ maxWidth: "63vh" }} src={API_URL + this.state.data[0].imagepath} />
+                                <div className="text-justify mt-3 mb-5" style={{ opacity: "0.8" }}>
+                                    {this.state.data[0].description}
+                                </div>
+                            </div>
+                            <br />
+                            <div className="text-center">
+                                <h5 className="mb-3">Specifications</h5>
+                                <MDBCol>
+                                    <MDBCard style={{ width: "22rem" }}>
+                                        <div onClick={this.toggle}>
+                                            <MDBCardImage className="img-fluid" src={API_URL + this.state.data[0].specification} waves />
+                                        </div>
+                                        {/* <MDBCardBody>
+                                    <MDBCardTitle>Card title</MDBCardTitle>
+                                    <MDBCardText>
+                                        Some quick example text to build on the card title and make
+                                        up the bulk of the card&apos;s content.
+                                        </MDBCardText>
+                                    <MDBBtn href="#">MDBBtn</MDBBtn>
+                                </MDBCardBody> */}
+                                    </MDBCard>
+                                </MDBCol>
+                                <div className="d-flex justify-content-between mt-4">
+                                    <div className="align-self-center">
+                                        <MDBBtn outline color="" size="sm" onClick={this.onClickMinus}>
+                                            <RemoveIcon />
+                                        </MDBBtn>
+                                    </div>
+                                    <div>
+                                        <MDBInput type="number" className="text-center" width="20px" value={this.state.productqty} disabled/>
+                                    </div>
+                                    <div className="align-self-center">
+                                        <MDBBtn outline color="" size="sm" onClick={this.onClickPlus}>
+                                            <AddIcon />
+                                        </MDBBtn>
+                                    </div>
+                                </div>
+                                <MDBBtn color="red darken-4">add to cart</MDBBtn>
                             </div>
                         </div>
-                        <h5>Specifications</h5>
-                        <br />
-                        <div className="text-center">
-                            <img className="card-img-top" style={{ maxWidth: "80%" }} src={require('../img/products/ups/SentinelPowerSPT/specification_sentinelpower.png')} />
-                        </div>
+                        {/* <img className="card-img-top" style={{ maxWidth: "80%" }} src={API_URL + this.state.data[0].specification} /> */}
                     </div>
                     <br />
                     <br />

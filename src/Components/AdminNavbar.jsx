@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../redux/action'
 import { Link, Redirect } from 'react-router-dom'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 import HomeIcon from '@material-ui/icons/Home';

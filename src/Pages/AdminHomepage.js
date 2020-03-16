@@ -29,7 +29,7 @@ class AdminHomepage extends Component {
             addImageFileName: 'Product Image',
             addImageFile: undefined,
 
-            editImageFileName: 'select file',
+            editImageFileName: 'choose image',
             editPdfFileName: 'select file',
             editSpecificationFileName: 'select image',
             editImageFile: undefined,
@@ -40,6 +40,15 @@ class AdminHomepage extends Component {
 
     componentDidMount() {
         this.getProducts()
+    }
+
+    
+    getProducts = () => {
+        Axios.get(API_URL + '/products/getAllProducts')
+            .then((res) => {
+                this.setState({ data: res.data })
+            })
+            .catch((err) => console.log(err))
     }
 
     onBtnAddSpecificationFile = (e) => { //upload specification
@@ -108,14 +117,6 @@ class AdminHomepage extends Component {
 
     isEdit = (e) => {
         this.setState({ isEdit: true })
-    }
-
-    getProducts = () => {
-        Axios.get(API_URL + '/products/getAllProducts')
-            .then((res) => {
-                this.setState({ data: res.data })
-            })
-            .catch((err) => console.log(err))
     }
 
     addProduct = () => {
@@ -328,7 +329,7 @@ class AdminHomepage extends Component {
                                 "Battery"
                             }
                         </td>
-                        <td style={{width: "25%", textAlign: 'justify'}}>{val.description}</td>
+                        <td style={{width: "100%", textAlign: 'justify', display: '-webkit-box', WebkitLineClamp: '4', WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>{val.description}</td>
                         <td>
                             <img src={API_URL + val.specification} alt="specimage" style={{ width: "30vh" }} />
                         </td>
@@ -361,14 +362,14 @@ class AdminHomepage extends Component {
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col" style={{ width: "15%" }}>Description</th>
-                                    <th scope="col">Specification</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">PDF</th>
-                                    <th scope="col" style={{ width: "14%" }}>action</th>
+                                    <th scope="col" className="text-center">#</th>
+                                    <th scope="col" className="text-center">Name</th>
+                                    <th scope="col" className="text-center">Type</th>
+                                    <th scope="col" className="text-center" style={{ width: "15%" }}>Description</th>
+                                    <th scope="col" className="text-center">Specification</th>
+                                    <th scope="col" className="text-center">Image</th>
+                                    <th scope="col" className="text-center">PDF</th>
+                                    <th scope="col" className="text-center" style={{ width: "14%" }}>action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -380,19 +381,7 @@ class AdminHomepage extends Component {
                                         <AddIcon style={{ color: '#fff', fontSize: '30px' }} /></td>
                                     <td style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" /></td>
                                     <td style={{ width: '10vh' }}>
-                                        {/* <input type="text" className="form-control" ref="newType" /> */}
-                                        {/* TODO: CHANGE INTO DROPDOWN */}
                                         {this.addTypeDropdown()}
-                                        {/* <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Dropdown button
-                                                </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div> */}
                                     </td>
                                     <td><input type="text" className="form-control" ref="newDescription" /></td>
                                     <td style={{ maxWidth: "100vh" }}>

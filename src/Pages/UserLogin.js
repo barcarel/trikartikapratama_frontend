@@ -76,7 +76,7 @@ class UserLogin extends Component {
                                 </p>
                                 </div>
                                 <MDBContainer>
-                                    <MDBInput label="Username" inputRef={(username) => this.username = username} />
+                                    <MDBInput label="Username" focu inputRef={(username) => this.username = username} />
                                     <MDBInput type="password" label="Password" inputRef={(password) => this.password = password} />
                                     <div className="text-center">
                                         <Link to='/userlogin'>

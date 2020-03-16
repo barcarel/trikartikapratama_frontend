@@ -48,7 +48,7 @@ const FooterPage = () => {
                         <div className="m-4">
                             <img className="img-fluid mr-5" src={require('../img/logo/logo_riello.png')} alt="header-logo" style={{ width: "60vh", maxWidth: "20vh", height: "auto" }} />
                             <img className="img-fluid" src={require('../img/logo/panasoniclogo.png')} alt="header-logo" style={{ width: "60vh", maxWidth: "20vh", height: "auto" }} />
-
+                            {/* <img className="img-fluid" src={require('../img/logo/safeenergylogo.png')} alt="header-logo" style={{ width: "60vh", maxWidth: "20vh", height: "auto" }} /> */}
                         </div>
                         <div className="mt-5 mb-5">
                             <h5 style={{ fontWeight: "bold" }}>PT. TRI KARTIKA PRATAMA</h5>

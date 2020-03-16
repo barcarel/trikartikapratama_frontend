@@ -46,7 +46,6 @@ class App extends Component {
             ?
             <Route path='/adminhomepage' component={AdminHomepage} />
             :
-
             this.props.role == 'user'
               ?
               <>

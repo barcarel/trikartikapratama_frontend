@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import Axios from 'axios';
 import { API_URL } from '../support/API_URL'
 import Footer from '../Components/Footer'
+import { MDBBtn } from 'mdbreact'
 
 class ContactUs extends Component {
     constructor(props) {
@@ -30,10 +31,10 @@ class ContactUs extends Component {
             message: message
         }
 
-        if(fullname && email && contactno){
-            try{
+        if (fullname && email && contactno) {
+            try {
                 Axios.post(API_URL + ``)
-            } catch(err) {console.log(err) }
+            } catch (err) { console.log(err) }
         }
 
         Swal.fire({
@@ -41,7 +42,7 @@ class ContactUs extends Component {
             title: 'Sent!',
             text: 'We will reach you as soon as possible.',
             timer: 5000
-          })
+        })
     }
 
     render() {
@@ -56,21 +57,21 @@ class ContactUs extends Component {
                     <h3 style={{ textAlign: "center", fontSize: "15px", opacity: "0.5" }}>We want to make sure you get the best product and services when it comes to UPS. Feel free to say hello!</h3>
                     <br />
                     <div className="container">
-                        <div class="d-flex justify-content-around companyprofile-left">
+                        <div class="d-flex justify-content-around">
                             <div class="col-6">
                                 <div className="container-fluid">
                                     <form>
                                         <div className="form-group">
                                             <label for="fullname" style={{ opacity: "0.9" }}>Full Name (required)</label>
-                                            <input type="text" className="form-control" id="fullname" ref="fullname"/>
+                                            <input type="text" className="form-control" id="fullname" ref="fullname" />
                                         </div>
                                         <div className="form-group">
                                             <label for="email" style={{ opacity: "0.9" }}>Email (required)</label>
-                                            <input type="email" className="form-control" id="email" ref="email"/>
+                                            <input type="email" className="form-control" id="email" ref="email" />
                                         </div>
                                         <div className="form-group">
                                             <label for="contactno" style={{ opacity: "0.9" }}>Contact Number (required)</label>
-                                            <input type="contactno" className="form-control" id="contactno" ref="contactno"/>
+                                            <input type="contactno" className="form-control" id="contactno" ref="contactno" />
                                         </div>
                                         <div class="form-group">
                                             <label for="message" style={{ opacity: "0.9" }}>Message</label>
@@ -78,7 +79,7 @@ class ContactUs extends Component {
                                                 Hi! Let's work together!
                                         </textarea>
                                         </div>
-                                        <button type="button" class="btn btn-danger" onClick={this.submitMessage}>Submit</button>
+                                        <MDBBtn onClick={this.submitMessage} color="red darken-4">Submit</MDBBtn>
                                     </form>
                                 </div>
                             </div>
