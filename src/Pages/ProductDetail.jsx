@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import Header from '../Components/Header'
@@ -13,6 +13,7 @@ import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, 
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
+import { addToCart, getUserCart, updateProductQty } from '../redux/action'
 
 
 class ProductDetail extends Component {
@@ -52,6 +53,28 @@ class ProductDetail extends Component {
 
     onClickPlus = () => {
         this.setState({ productqty: this.state.productqty + 1 })
+    }
+
+    onClickAddtoCart = () => {
+        var iduser = this.props.id
+        var idproduct = this.state.data[0].id
+        var productqty = this.state.productqty
+        if (productqty != 0) {
+            //if product alr exist in usercart table, update usecart productqty
+            // console.log(idproduct)
+            var cartUser = this.props.cart.data
+            var totalqty = productqty
+            for (var i = 0; i < cartUser.length; i++) {
+                if (idproduct == cartUser[i].idproduct) {
+                    totalqty += cartUser[i].productqty
+                    return this.props.updateProductQty(iduser, idproduct, totalqty)
+                } else {
+                    return this.props.updateProductQty(iduser, idproduct, totalqty)
+                }
+            }
+            // console.log('total quantity: ', totalqty)
+        }
+        this.props.addToCart(iduser, idproduct, productqty)
     }
 
     // onChangeProductqtyInput = () => {
@@ -114,36 +137,35 @@ class ProductDetail extends Component {
                                         <div onClick={this.toggle}>
                                             <MDBCardImage className="img-fluid" src={API_URL + this.state.data[0].specification} waves />
                                         </div>
-                                        {/* <MDBCardBody>
-                                    <MDBCardTitle>Card title</MDBCardTitle>
-                                    <MDBCardText>
-                                        Some quick example text to build on the card title and make
-                                        up the bulk of the card&apos;s content.
-                                        </MDBCardText>
-                                    <MDBBtn href="#">MDBBtn</MDBBtn>
-                                </MDBCardBody> */}
                                     </MDBCard>
                                 </MDBCol>
-                                <div className="d-flex justify-content-between mt-4">
-                                    <div className="align-self-center">
-                                        <MDBBtn outline color="" size="sm" onClick={this.onClickMinus}>
-                                            <RemoveIcon />
-                                        </MDBBtn>
-                                    </div>
+                                {this.props.role == 'user'
+                                    ?
                                     <div>
-                                        <MDBInput type="number" className="text-center" width="20px" value={this.state.productqty} disabled/>
+                                        <div className="d-flex justify-content-between mt-4">
+                                            <div className="align-self-center">
+                                                <MDBBtn outline color="" size="sm" onClick={this.onClickMinus}>
+                                                    <RemoveIcon />
+                                                </MDBBtn>
+                                            </div>
+                                            <div className="text-center align-self-center">
+                                                {this.state.productqty}
+                                            </div>
+                                            <div className="align-self-center">
+                                                <MDBBtn outline color="" size="sm" onClick={this.onClickPlus}>
+                                                    <AddIcon />
+                                                </MDBBtn>
+                                            </div>
+                                        </div>
+                                        <MDBBtn color="red darken-4" onClick={this.onClickAddtoCart}>add to cart</MDBBtn>
                                     </div>
-                                    <div className="align-self-center">
-                                        <MDBBtn outline color="" size="sm" onClick={this.onClickPlus}>
-                                            <AddIcon />
-                                        </MDBBtn>
-                                    </div>
-                                </div>
-                                <MDBBtn color="red darken-4">add to cart</MDBBtn>
+                                    :
+                                    <>
+                                    </>
+                                }
                             </div>
                         </div>
-                        {/* <img className="card-img-top" style={{ maxWidth: "80%" }} src={API_URL + this.state.data[0].specification} /> */}
-                    </div>
+                    </div>s
                     <br />
                     <br />
                 </div>
@@ -153,6 +175,13 @@ class ProductDetail extends Component {
     }
 }
 
+const mapStateToProps = ({ user, cart }) => {
+    return {
+        ...user,
+        cart
+    }
+}
 
 
-export default ProductDetail;
+
+export default connect(mapStateToProps, { addToCart, getUserCart, updateProductQty })(ProductDetail);

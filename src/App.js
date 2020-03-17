@@ -20,6 +20,7 @@ import Register from './Pages/Register';
 import UserLogin from './Pages/UserLogin';
 import UserProfile from './Pages/UserProfile';
 import UserAccount from './Pages/UserAccount';
+import UserCheckout from './Pages/UserCheckout';
 import UserTransaction from './Pages/UserTransaction'
 import print from './Downloader/print'
 
@@ -52,6 +53,7 @@ class App extends Component {
                 <Route path='/userprofile' component={UserProfile} />
                 <Route path='/useraccount' component={UserAccount} />
                 <Route path='/usertransaction' component={UserTransaction} />
+                <Route path='/usercheckout' component={UserCheckout} />
               </>
               :
               <Route path='*' component={Notfound} />

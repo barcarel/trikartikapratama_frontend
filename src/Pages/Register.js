@@ -34,6 +34,7 @@ class Register extends Component {
                     icon: 'success',
                     text: 'successfully created an account!'
                 })
+                // this.props.login()
                 this.setState({redirect: true})
             }
         } else {
