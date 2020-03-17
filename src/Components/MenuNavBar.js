@@ -5,7 +5,7 @@ import {
     MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
     MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBBtn, MDBNav, MDBRow, MDBInput, MDBLink, MDBPopover, MDBPopoverBody, MDBPopoverHeader,
 } from "mdbreact";
-import { logout, getUserCart } from '../redux/action'
+import { logout, getUserCart, deleteUserCart } from '../redux/action'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -36,6 +36,11 @@ class MenuNavBar extends Component {
 
     onBtnLogOut = () => {
         this.props.logout()
+    }
+
+    clearUserCart = () => {
+        this.props.deleteUserCart(this.props.id)
+        this.props.getUserCart(this.props.id)
     }
 
     mainDropdown = () => {
@@ -126,16 +131,13 @@ class MenuNavBar extends Component {
                             </div>
                         </MDBDropdownToggle>
                         <MDBDropdownMenu right className="dropdown-default">
-                            {/* <MDBDropdownItem>
-                                <MDBListGroup style={{ width: "22rem" }}>
-                                    <MDBListGroupItem className="d-flex justify-content-between align-items-center">Cras justo odio
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem className="d-flex justify-content-between align-items-center">Dapibus ac facilisis in
-                                    </MDBListGroupItem>
-                                    <MDBListGroupItem className="d-flex justify-content-between align-items-center">Morbi leo risus
-                                    </MDBListGroupItem>
-                                </MDBListGroup>
-                            </MDBDropdownItem> */}
+                            <div className="ml-5">
+                                <ShoppingCartIcon fontSize="large" />
+                                &nbsp;
+                                Shopping cart
+                                <a className="float-right mr-5" onClick={this.clearUserCart}>clear all</a>
+                            </div>
+                            <MDBDropdownItem divider />
                             {this.renderDataCart()}
                             <div className="text-center">
                                 <Link to='/usercheckout'>
@@ -233,4 +235,4 @@ const mapStateToProps = ({ user, cart }) => {
     }
 }
 
-export default connect(mapStateToProps, { logout, getUserCart })(MenuNavBar);
+export default connect(mapStateToProps, { logout, getUserCart, deleteUserCart })(MenuNavBar);

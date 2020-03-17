@@ -79,3 +79,22 @@ export const updateProductQty = (iduser, idproduct, totalqty) => {
             })
     }
 }
+
+export const deleteUserCart = (iduser) => {
+    return (dispatch) => {
+        // console.log('iduser',iduser)
+        Axios.delete(API_URL + `/cart/deleteUserCart?iduser=${iduser}`)
+            .then((res) => {
+                dispatch({
+                    type: 'USER_EMPTYCART'
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+                Swal.fire({
+                    icon: 'error',
+                    text: 'unable to clear user cart'
+                })
+            })
+    }
+}

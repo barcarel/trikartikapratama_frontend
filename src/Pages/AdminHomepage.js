@@ -42,7 +42,7 @@ class AdminHomepage extends Component {
         this.getProducts()
     }
 
-    
+
     getProducts = () => {
         Axios.get(API_URL + '/products/getAllProducts')
             .then((res) => {
@@ -277,12 +277,12 @@ class AdminHomepage extends Component {
                 return (
                     <tr key={val.id}>
                         <td>{index + 1}</td>
-                        <td><textarea type="text" ref="editName" defaultValue={val.name} onChange={this.isEdit} /></td>
-                        <td style={{ width: '12vh' }}>
+                        <td>
+                            <textarea type="text" ref="editName" defaultValue={val.name} onChange={this.isEdit} />
                             {this.editTypeDropdown(val.categoryid)}
                         </td>
-                        <td style={{ width: "25%" }}><textarea style={{width: '100%'}} rows="20" type="text" ref="editDescription" defaultValue={val.description}  /></td>
-                        <td style={{ width: '30vh' }}>
+                        <td style={{ width: "25%" }}><textarea style={{ width: '100%' }} rows="20" type="text" ref="editDescription" defaultValue={val.description} /></td>
+                        <td>
                             <form>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnEditSpecificationFile} />
@@ -319,25 +319,22 @@ class AdminHomepage extends Component {
             } else {
                 return (
                     <tr key={val.id}>
-                        <td>{index + 1}</td>
-                        <td style={{ width: "16vh" }}>{val.name}</td>
-                        <td>
+                        <td className="text-center">{index + 1}</td>
+                        <td style={{ width: "16vh" }}  className="text-center">{val.name} <br /><p className="font-weight-bold">
                             {val.categoryid == 1
                                 ?
                                 "UPS"
                                 :
-                                "Battery"
-                            }
+                                "Battery"} </p></td>
+                        <td style={{ width: "100%", textAlign: 'justify', display: '-webkit-box', WebkitLineClamp: '4', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{val.description}</td>
+                        <td className="text-center">
+                            <img src={API_URL + val.specification} alt="specimage" style={{ width: "20vh" }} />
                         </td>
-                        <td style={{width: "100%", textAlign: 'justify', display: '-webkit-box', WebkitLineClamp: '4', WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>{val.description}</td>
-                        <td>
-                            <img src={API_URL + val.specification} alt="specimage" style={{ width: "30vh" }} />
-                        </td>
-                        <td>
-                            <img src={API_URL + val.imagepath} alt="productimage" style={{ width: "30vh" }} />
+                        <td className="text-center">
+                            <img src={API_URL + val.imagepath} alt="productimage" style={{ width: "20vh" }} />
                         </td>
                         <td>{val.pdf}</td>
-                        <td>
+                        <td className="text-center">
                             <button type="button" class="btn btn-primary" onClick={() => this.editProduct(val.id)}>edit</button>
                             &nbsp;
                         <button type="button" class="btn btn-danger" onClick={() => this.deleteProduct(val.id, val.imagepath, val.pdf, val.specification)}>delete</button>
@@ -356,15 +353,11 @@ class AdminHomepage extends Component {
                     <h1>Products</h1>
                     <br />
                     <div className="body">
-                        {/* <div id="ups" className="text-center" style={{ backgroundColor: "black", color: "white", fontSize: "3vh" }}>
-                            UPS
-                        </div> */}
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col" className="text-center">#</th>
                                     <th scope="col" className="text-center">Name</th>
-                                    <th scope="col" className="text-center">Type</th>
                                     <th scope="col" className="text-center" style={{ width: "15%" }}>Description</th>
                                     <th scope="col" className="text-center">Specification</th>
                                     <th scope="col" className="text-center">Image</th>
@@ -379,11 +372,10 @@ class AdminHomepage extends Component {
                                 <tr>
                                     <td>
                                         <AddIcon style={{ color: '#fff', fontSize: '30px' }} /></td>
-                                    <td style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" /></td>
-                                    <td style={{ width: '10vh' }}>
+                                    <td style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
                                         {this.addTypeDropdown()}
                                     </td>
-                                    <td><input type="text" className="form-control" ref="newDescription" /></td>
+                                    <td><textarea rows='10' type="text" className="form-control" ref="newDescription" /></td>
                                     <td style={{ maxWidth: "100vh" }}>
                                         {/* specification */}
                                         <form>

@@ -9,7 +9,7 @@ const CartReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state, data: action.payload
             }
-        case 'USER_CHECKOUT':
+        case 'USER_EMPTYCART':
             return INITIAL_STATE
         default:
             return state

@@ -60,19 +60,14 @@ class ProductDetail extends Component {
         var idproduct = this.state.data[0].id
         var productqty = this.state.productqty
         if (productqty != 0) {
-            //if product alr exist in usercart table, update usecart productqty
-            // console.log(idproduct)
             var cartUser = this.props.cart.data
             var totalqty = productqty
             for (var i = 0; i < cartUser.length; i++) {
                 if (idproduct == cartUser[i].idproduct) {
                     totalqty += cartUser[i].productqty
                     return this.props.updateProductQty(iduser, idproduct, totalqty)
-                } else {
-                    return this.props.updateProductQty(iduser, idproduct, totalqty)
-                }
+                } 
             }
-            // console.log('total quantity: ', totalqty)
         }
         this.props.addToCart(iduser, idproduct, productqty)
     }
