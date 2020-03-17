@@ -125,6 +125,7 @@ class AdminHomepage extends Component {
         var name = this.refs.newName.value
         var description = this.refs.newDescription.value
         var categoryid = this.state.addTypeId
+        var price = this.refs.newPrice.value
 
         if (addPdfFile && addImageFile && addSpecificationFile) {
             let formData = new FormData()
@@ -310,6 +311,9 @@ class AdminHomepage extends Component {
                             <p>{val.pdf}</p>
                         </td>
                         <td>
+                        <input type="number" className="form-control" ref="editPrice" />
+                        </td>
+                        <td>
                             <MDBBtn outline color="stylish-color-dark" onClick={this.cancelEdit}>cancel</MDBBtn>
                             &nbsp;
                         <button type="button" class="btn btn-success" onClick={() => this.submitEdit(val.id)}>submit</button>
@@ -320,7 +324,7 @@ class AdminHomepage extends Component {
                 return (
                     <tr key={val.id}>
                         <td className="text-center">{index + 1}</td>
-                        <td style={{ width: "16vh" }}  className="text-center">{val.name} <br /><p className="font-weight-bold">
+                        <td style={{ width: "16vh" }} className="text-center">{val.name} <br /><p className="font-weight-bold">
                             {val.categoryid == 1
                                 ?
                                 "UPS"
@@ -333,7 +337,8 @@ class AdminHomepage extends Component {
                         <td className="text-center">
                             <img src={API_URL + val.imagepath} alt="productimage" style={{ width: "20vh" }} />
                         </td>
-                        <td>{val.pdf}</td>
+                        <td className="text-center">{val.pdf}</td>
+                        <td className="text-center">{val.price}</td>
                         <td className="text-center">
                             <button type="button" class="btn btn-primary" onClick={() => this.editProduct(val.id)}>edit</button>
                             &nbsp;
@@ -362,17 +367,18 @@ class AdminHomepage extends Component {
                                     <th scope="col" className="text-center">Specification</th>
                                     <th scope="col" className="text-center">Image</th>
                                     <th scope="col" className="text-center">PDF</th>
+                                    <th scope="col" className="text-center">Price</th>
                                     <th scope="col" className="text-center" style={{ width: "14%" }}>action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.renderData()}
                             </tbody>
-                            <tfoot style={{ backgroundColor: "rgba(52, 52, 52, 0.4)" }}>
-                                <tr>
-                                    <td>
+                            <tfoot>
+                                {/* <tr bgcolor="#343A40"> */}
+                                    <td className="text-center">
                                         <AddIcon style={{ color: '#fff', fontSize: '30px' }} /></td>
-                                    <td style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
+                                    <td className="text-center" style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
                                         {this.addTypeDropdown()}
                                     </td>
                                     <td><textarea rows='10' type="text" className="form-control" ref="newDescription" /></td>
@@ -396,7 +402,7 @@ class AdminHomepage extends Component {
                                         </form>
                                         <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="imgpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
                                     </td>
-                                    <td>
+                                    <td >
                                         {/* pdf */}
                                         <form>
                                             <div class="custom-file">
@@ -405,13 +411,15 @@ class AdminHomepage extends Component {
                                             </div>
                                         </form>
                                     </td>
-                                    <td>
+                                    <td className="text-center">
+                                        <input type="number" className="form-control" ref="newPrice" />
+                                    </td>
+                                    <td className="text-center">
                                         <button type="button" class="btn btn-success" onClick={this.addProduct}>submit</button>
                                     </td>
-                                </tr>
+                                {/* </tr> */}
                             </tfoot>
                         </table>
-
                     </div>
                 </div>
             </div>
