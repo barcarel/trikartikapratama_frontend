@@ -3,7 +3,7 @@ import { API_URL } from '../../support/API_URL'
 import Swal from "sweetalert2"
 
 export const login = (username, password, role) => {
-    console.log(`ACTION: username: ${username} and password: ${password} and role: ${role}`)
+    // console.log(`ACTION: username: ${username} and password: ${password} and role: ${role}`)
     return (dispatch) => {
         Axios.post(API_URL + `/user/login`, {
             username,

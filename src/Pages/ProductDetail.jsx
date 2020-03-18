@@ -66,18 +66,18 @@ class ProductDetail extends Component {
                 if (idproduct == cartUser[i].idproduct) {
                     totalqty += cartUser[i].productqty
                     return this.props.updateProductQty(iduser, idproduct, totalqty)
-                } 
+                }
             }
         }
         this.props.addToCart(iduser, idproduct, productqty)
     }
 
-    // onChangeProductqtyInput = () => {
-    //     var inputvalue = this.productqtyInput.value
-    //     console.log('asds', inputvalue)
-    //     // console.log(e.target.value)
-    //     // this.setState({productqty: inputvalue})
-    // }
+    printPrice = () => {
+        var price = this.state.data[0].price
+        price = parseInt(price)
+
+        return price.toLocaleString()
+    }
 
     render() {
         return (
@@ -134,10 +134,13 @@ class ProductDetail extends Component {
                                         </div>
                                     </MDBCard>
                                 </MDBCol>
+                                <div className="m-5">
+                                    Rp {this.printPrice()}
+                                </div>
                                 {this.props.role == 'user'
                                     ?
                                     <div>
-                                        <div className="d-flex justify-content-between mt-4">
+                                        <div className="d-flex justify-content-around mt-4">
                                             <div className="align-self-center">
                                                 <MDBBtn outline color="" size="sm" onClick={this.onClickMinus}>
                                                     <RemoveIcon />

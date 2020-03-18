@@ -102,10 +102,10 @@ class UserLogin extends Component {
     }
 }
 
-const mapStateToProps = ({ user }) => {
-    return {
-        ...user
-    }
-}
+// const mapStateToProps = ({ user }) => {
+//     return {
+//         ...user
+//     }
+// }
 
 export default connect(null, { login })(UserLogin);

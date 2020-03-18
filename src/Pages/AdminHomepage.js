@@ -127,12 +127,13 @@ class AdminHomepage extends Component {
         var categoryid = this.state.addTypeId
         var price = this.refs.newPrice.value
 
-        if (addPdfFile && addImageFile && addSpecificationFile) {
+        if (addPdfFile || addImageFile || addSpecificationFile) {
             let formData = new FormData()
             let obj = {
                 name: name,
                 description: description,
-                categoryid: categoryid
+                categoryid: categoryid,
+                price: price
             }
             formData.append('data', JSON.stringify(obj)) //dijadiin JSON
             formData.append('image', addImageFile)
@@ -237,6 +238,7 @@ class AdminHomepage extends Component {
                 name: this.refs.editName.value,
                 description: this.refs.editDescription.value,
                 categoryid: this.state.editTypeId,
+                price: this.refs.editPrice.value
             }
             console.log(editImageFile)
             console.log(editPdfFile)
@@ -250,6 +252,7 @@ class AdminHomepage extends Component {
                 name: this.refs.editName.value,
                 description: this.refs.editDescription.value,
                 categoryid: this.state.editTypeId,
+                price: this.refs.editPrice.value
             }
         }
         console.log(obj)

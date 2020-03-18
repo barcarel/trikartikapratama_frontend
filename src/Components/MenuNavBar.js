@@ -9,6 +9,7 @@ import { logout, getUserCart, deleteUserCart } from '../redux/action'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import LockIcon from '@material-ui/icons/Lock';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Collapse } from "@material-ui/core";
@@ -41,6 +42,7 @@ class MenuNavBar extends Component {
     clearUserCart = () => {
         this.props.deleteUserCart(this.props.id)
         this.props.getUserCart(this.props.id)
+        window.location.reload()
     }
 
     mainDropdown = () => {
@@ -120,7 +122,7 @@ class MenuNavBar extends Component {
     cartDropdown = () => {
         return (
             <MDBDropdown>
-                {this.props.role == 'user' && this.props.username
+                {this.props.role == 'user' && this.props.username && this.props.cart.data[0]
                     ?
                     <div>
                         <MDBDropdownToggle nav>
@@ -131,11 +133,11 @@ class MenuNavBar extends Component {
                             </div>
                         </MDBDropdownToggle>
                         <MDBDropdownMenu right className="dropdown-default">
-                            <div className="ml-5">
+                            <div className="ml-5 text-muted">
                                 <ShoppingCartIcon fontSize="large" />
                                 &nbsp;
                                 Shopping cart
-                                <a className="float-right mr-5" onClick={this.clearUserCart}>clear all</a>
+                                <a className="float-right mr-5" style={{ color: 'red' }} onClick={this.clearUserCart}>clear cart</a>
                             </div>
                             <MDBDropdownItem divider />
                             {this.renderDataCart()}
@@ -149,15 +151,26 @@ class MenuNavBar extends Component {
                     :
                     this.props.role == 'admin'
                         ?
-                        <div></div>
-                        :
-                        < div >
+                        <div>
                             <Link to='/register'>
                                 <MDBBtn className="user-register-btn" color="white">register</MDBBtn>
                             </Link>
                             <Link to='/userlogin'>
                                 <MDBBtn color="indigo darken-4">login</MDBBtn>
                             </Link>
+                        </div>
+                        :
+                        <div>
+                            <MDBDropdownToggle nav>
+                                <div className="d-none d-md-inline" style={{ color: '#fff' }}>
+                                    <ShoppingCartIcon />
+                                    <MDBBadge color="primary"
+                                        pill>{this.props.cart.data.length}</MDBBadge>
+                                </div>
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu right className="dropdown-default text-center text-muted">
+                                your shopping cart is empty.
+                        </MDBDropdownMenu>
                         </div>
                 }
             </MDBDropdown>

@@ -14,12 +14,12 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'LOGIN':
-            console.log('reducer',action.payload)
+            // console.log('reducer',action.payload)
             return {
                 ...state, ...action.payload
             }
         case 'USER_FULLPROFILE':
-            console.log('reducer',action.payload)
+            // console.log('reducer',action.payload)
             return {
                 ...state, ...action.payload
             }

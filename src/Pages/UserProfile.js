@@ -11,10 +11,6 @@ import { Redirect } from 'react-router-dom'
 
 class UserProfile extends Component {
 
-    componentDidMount() {
-        console.log(this.props.firstname)
-    }
-
     state = {
         isEdit: false,
     }
@@ -147,7 +143,7 @@ class UserProfile extends Component {
     }
 }
 const mapStateToProps = ({ user }) => {
-    console.log('MAP', user)
+    // console.log('MAP', user)
     return {
         ...user,
         // ...userupdateinfo
