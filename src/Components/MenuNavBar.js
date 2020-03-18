@@ -27,8 +27,8 @@ class MenuNavBar extends Component {
     componentDidUpdate() {
         
         if (this.props.id) {
-            this.props.getUserCart(this.props.id)
-            console.log(this.props.cart.data)
+            this.props.getUserCart()
+            // console.log(this.props.cart.data)
         }
     }
 
@@ -42,7 +42,7 @@ class MenuNavBar extends Component {
 
     clearUserCart = () => {
         this.props.deleteUserCart(this.props.id)
-        this.props.getUserCart(this.props.id)
+        this.props.getUserCart()
         window.location.reload()
     }
 
@@ -268,7 +268,7 @@ class MenuNavBar extends Component {
 }
 
 const mapStateToProps = ({ user, cart }) => {
-    console.log('asda',cart.data)
+    // console.log('asda',cart.data)
     // console.log(cart)
     return {
         ...user,

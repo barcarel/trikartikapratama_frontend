@@ -42,7 +42,6 @@
   max-height: 7vh !important;
   background-color: #B23833;
   color: white;
-
   /* -webkit-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
   -moz-box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47);
   box-shadow: 0px 15px 12px -5px rgba(0, 0, 0, 0.47); */
@@ -287,10 +286,10 @@ hr.style1:after {
   border-bottom: 1px solid #fff;
 }
 
-  .title {
-    padding-left: 8%;
-    font-weight: bold;
-  }
+.title {
+  padding-left: 8%;
+  font-weight: bold;
+}
 
 .footer {
   background-color: rgb(194, 194, 194);
@@ -356,7 +355,6 @@ li a {
   max-height: 10vh;
 } */
 
-
 .card:hover {
   border: 1px solid #2196f3;
   -webkit-box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.75);
@@ -419,11 +417,12 @@ box-shadow: 0px 0px 65px 6px rgba(196,196,196,0.82);
   font-size: 1vh;
 }
 
-table{
+table {
   position: relative;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
-th{
+
+th {
   background: white;
   position: sticky;
   top: 0;
@@ -438,6 +437,21 @@ th{
 .userlogin-navbar {
   background: rgb(255, 255, 255);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.8912158613445378) 35%, rgba(0, 0, 0, 1) 93%);
+}
+
+.deliveryinformation {
+  background: white !important;
+  /* border-radius: 5px; */
+  -webkit-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+}
+
+.ordersummary {
+  background: white !important;
+  -webkit-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
 }
 
 /*----------------- SIDEBAR ----------------- */
@@ -486,8 +500,7 @@ main {
 #content {
   margin-left: 270px;
   position: relative;
-  height: 80vh ;
-  
+  height: 80vh;
   /* min-height: 80%; */
 }
 
@@ -606,7 +619,7 @@ main {
   margin: 0;
 }
 
-.BtColor{
+.BtColor {
   width: 10px;
 }
 
@@ -653,7 +666,6 @@ main {
 }
 
 /*----------------- SIDEBAR ----------------- */
-
 
 /*----------------- 404 NOT FOUND----------------- */
 

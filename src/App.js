@@ -22,6 +22,7 @@ import UserProfile from './Pages/UserProfile';
 import UserAccount from './Pages/UserAccount';
 import UserCheckout from './Pages/UserCheckout';
 import UserTransaction from './Pages/UserTransaction';
+import UserPayment from './Pages/UserPayment';
 import print from './Downloader/print'
 
 class App extends Component {
@@ -53,6 +54,7 @@ class App extends Component {
                 <Route path='/userprofile' component={UserProfile} />
                 <Route path='/useraccount' component={UserAccount} />
                 <Route path='/usertransaction' component={UserTransaction} />
+                <Route path='/userpayment' component={UserPayment} />
                 <Route path='/usercheckout' component={UserCheckout} />
               </>
               :

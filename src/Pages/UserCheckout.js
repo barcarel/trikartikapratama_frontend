@@ -3,6 +3,7 @@ import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
 import Footer from '../Components/Footer'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getUserCart } from '../redux/action'
 import { API_URL } from "../support/API_URL";
 import {
@@ -13,34 +14,25 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol }
 
 class UserCheckout extends Component {
 
+    componentDidMount() {
+        this.props.getUserCart()
+    }
+
     renderDataCart = () => {
         if (this.props.cart.data) {
             return this.props.cart.data.map((val, id) => {
                 // { this.countTotalCartPrice(val.price) }
                 return (
-                    <MDBDropdownItem disabled>
-                        <div className="row" style={{ width: '50vh' }}>
-                            <div className="col-4">
-                                <img style={{ objectFit: 'cover' }} width="100%" height="100%" src={API_URL + val.imagepath} />
-                            </div>
-                            <div className="col-8 d-flex align-items-center flex-column bd-highlight mb-3">
-                                <div class="p-2 bd-highlight">
-                                    {val.name}
-                                </div>
-                                <div class="p-2 bd-highlight">
-                                    {/* <MDBBtn size="sm" color="red darken-4">-</MDBBtn> */}
-                                    <span className="ml-3 mr-3">
-                                        qty: {val.productqty}
-                                    </span>
-                                    {/* <MDBBtn size="sm" color="red darken-4">+</MDBBtn> */}
-                                </div>
-                                <div style={{ color: 'black' }}>
-                                    Rp {parseInt((val.totalprice)).toLocaleString()}
-                                </div>
-                            </div>
-                        </div>
-                        <MDBDropdownItem divider />
-                    </MDBDropdownItem>
+                    <div className="d-flex justify-content-center p-3">
+                        <MDBCard style={{ width: "50rem" }}>
+                            <MDBCardBody>
+                                <MDBCardTitle>{val.name}</MDBCardTitle>
+                                <MDBCardText>
+                                    {val.productqty} pcs
+                                </MDBCardText>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </div>
                 )
             })
         }
@@ -57,19 +49,9 @@ class UserCheckout extends Component {
                             <div>
                                 {this.renderDataCart()}
                             </div>
-                            <div className="d-flex justify-content-center">
-                                {/* <MDBCol> */}
-                                    {/* <MDBCard style={{ width: "50rem" }}>
-                                        <MDBCardBody>
-                                            <MDBCardTitle>Card title</MDBCardTitle>
-                                            <MDBCardText>
-                                                Some quick example text to build on the card title and make
-                                                up the bulk of the card&apos;s content.
-                                                </MDBCardText>
-                                        </MDBCardBody>
-                                    </MDBCard> */}
-                                {/* </MDBCol> */}
-                            </div>
+                            <Link to='/userpayment'>
+                                <MDBBtn color="primary">Proceed to payment</MDBBtn>
+                            </Link>
                         </div>
                     </div>
                 </div>
