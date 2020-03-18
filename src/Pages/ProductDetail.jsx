@@ -59,17 +59,21 @@ class ProductDetail extends Component {
         var iduser = this.props.id
         var idproduct = this.state.data[0].id
         var productqty = this.state.productqty
+        var totalprice = productqty * this.state.data[0].price
+        console.log(productqty)
         if (productqty != 0) {
             var cartUser = this.props.cart.data
             var totalqty = productqty
+            var updatetotalprice = totalprice
             for (var i = 0; i < cartUser.length; i++) {
                 if (idproduct == cartUser[i].idproduct) {
                     totalqty += cartUser[i].productqty
-                    return this.props.updateProductQty(iduser, idproduct, totalqty)
+                    updatetotalprice += cartUser[i].totalprice
+                    return this.props.updateProductQty(iduser, idproduct, totalqty, updatetotalprice)
                 }
             }
+            this.props.addToCart(iduser, idproduct, productqty, totalprice)
         }
-        this.props.addToCart(iduser, idproduct, productqty)
     }
 
     printPrice = () => {

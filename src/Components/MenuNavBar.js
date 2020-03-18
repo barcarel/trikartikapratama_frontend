@@ -21,13 +21,14 @@ import { API_URL } from "../support/API_URL";
 class MenuNavBar extends Component {
     state = {
         isOpen: false,
-        spanCount: 0
+        spanCount: 0,
+        // totalPrice: 0
     };
-
     componentDidUpdate() {
+        
         if (this.props.id) {
             this.props.getUserCart(this.props.id)
-            // console.log(this.cart.data)
+            console.log(this.props.cart.data)
         }
     }
 
@@ -90,9 +91,15 @@ class MenuNavBar extends Component {
         )
     }
 
+    countTotalCartPrice = (totalprice) => {
+        // console.log(totalprice)
+
+    }
+
     renderDataCart = () => {
         if (this.props.cart.data) {
             return this.props.cart.data.map((val, id) => {
+                // { this.countTotalCartPrice(val.price) }
                 return (
                     <MDBDropdownItem disabled>
                         <div className="row" style={{ width: '50vh' }}>
@@ -106,9 +113,12 @@ class MenuNavBar extends Component {
                                 <div class="p-2 bd-highlight">
                                     {/* <MDBBtn size="sm" color="red darken-4">-</MDBBtn> */}
                                     <span className="ml-3 mr-3">
-                                        {val.productqty}
+                                        qty: {val.productqty}
                                     </span>
                                     {/* <MDBBtn size="sm" color="red darken-4">+</MDBBtn> */}
+                                </div>
+                                <div style={{ color: 'black' }}>
+                                    Rp {parseInt(val.totalprice).toLocaleString()}
                                 </div>
                             </div>
                         </div>
@@ -141,10 +151,15 @@ class MenuNavBar extends Component {
                             </div>
                             <MDBDropdownItem divider />
                             {this.renderDataCart()}
-                            <div className="text-center">
-                                <Link to='/usercheckout'>
-                                    <MDBBtn color="primary">check out</MDBBtn>
-                                </Link>
+                            <div className="row">
+                                <div className="col-4 ml-3">
+                                    <Link to='/usercheckout'>
+                                        <MDBBtn color="primary">check out</MDBBtn>
+                                    </Link>
+                                </div>
+                                <div className="col-7 d-flex align-items-center font-weight-bold" style={{fontSize: '2vh'}}>
+                                    <a className="text-muted ml-4">total </a> Rp {parseInt(this.props.cart.data.totalPrice).toLocaleString()}
+                                </div>
                             </div>
                         </MDBDropdownMenu>
                     </div>
@@ -176,6 +191,18 @@ class MenuNavBar extends Component {
             </MDBDropdown>
         )
     }
+
+    // totalPrice = (price) => {
+    //     console.log('price', price)
+    //     // price = parseInt(price)
+    //     var totalprice = 0
+    //     for (var i = 0; i < this.props.cart.data.length; i++) {
+    //         totalprice += this.props.cart.data[i].price
+
+    //     }
+    //     // totalprice += price
+    //     this.setState({ totalPrice: totalprice })
+    // }
 
     render() {
         return (
@@ -241,6 +268,7 @@ class MenuNavBar extends Component {
 }
 
 const mapStateToProps = ({ user, cart }) => {
+    console.log('asda',cart.data)
     // console.log(cart)
     return {
         ...user,

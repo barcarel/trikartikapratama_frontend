@@ -4,8 +4,17 @@ import Swal from "sweetalert2"
 
 export const getUserCart = (id) => {
     return (dispatch) => {
-        Axios.get(API_URL + `/cart/getAllUserCart?id=${id}`)
+        var token = localStorage.getItem('token')
+        Axios.get(API_URL + `/cart/getAllUserCart?id=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then((res) => {
+                let totalCartPrice = 0
+                res.data.map((val) => totalCartPrice += val.totalprice)
+                res.data.totalPrice = totalCartPrice
+
                 dispatch({
                     type: 'USER_ADDTOCART_SUCCESS',
                     payload: res.data
@@ -20,12 +29,13 @@ export const getUserCart = (id) => {
     }
 }
 
-export const addToCart = (iduser, idproduct, productqty) => {
+export const addToCart = (iduser, idproduct, productqty, totalprice) => {
     return (dispatch) => {
         Axios.post(API_URL + `/cart/postUserCart`, {
             iduser,
             idproduct,
-            productqty
+            productqty,
+            totalprice
         })
             .then((res) => {
                 dispatch({
@@ -36,7 +46,7 @@ export const addToCart = (iduser, idproduct, productqty) => {
                     icon: 'success',
                     text: 'sucessfully added to cart',
                     showConfirmButton: false,
-                    timer: '1500'
+                    timer: '1300'
 
                 })
             })
@@ -50,12 +60,14 @@ export const addToCart = (iduser, idproduct, productqty) => {
     }
 }
 
-export const updateProductQty = (iduser, idproduct, totalqty) => {
+export const updateProductQty = (iduser, idproduct, totalqty, totalprice) => {
+    console.log('totalprice action', totalprice)
     return (dispatch) => {
         Axios.post(API_URL + `/cart/updateProductQty`, {
             iduser,
             idproduct,
-            totalqty
+            totalqty,
+            totalprice
         })
             .then((res) => {
                 dispatch({

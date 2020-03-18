@@ -21,7 +21,7 @@ import UserLogin from './Pages/UserLogin';
 import UserProfile from './Pages/UserProfile';
 import UserAccount from './Pages/UserAccount';
 import UserCheckout from './Pages/UserCheckout';
-import UserTransaction from './Pages/UserTransaction'
+import UserTransaction from './Pages/UserTransaction';
 import print from './Downloader/print'
 
 class App extends Component {
