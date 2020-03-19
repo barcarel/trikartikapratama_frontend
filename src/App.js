@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { keepLogin } from './redux/action'
+import { keepLogin, getUserCart } from './redux/action'
 
 import Landingpage from './Pages/landingpage'
 import NavbarMenu from './Components/NavBarmenu'
@@ -29,6 +29,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.keepLogin()
+    this.props.getUserCart()
   }
 
   render() {
@@ -54,6 +55,7 @@ class App extends Component {
                 <Route path='/userprofile' component={UserProfile} />
                 <Route path='/useraccount' component={UserAccount} />
                 <Route path='/usertransaction' component={UserTransaction} />
+               
                 <Route path='/userpayment' component={UserPayment} />
                 <Route path='/usercheckout' component={UserCheckout} />
               </>
@@ -68,10 +70,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user, cart }) => {
   return {
-    ...user
+    ...user,
+    cart
   }
 }
 
-export default connect(mapStateToProps, { keepLogin })(App);
+export default connect(mapStateToProps, { keepLogin, getUserCart })(App);

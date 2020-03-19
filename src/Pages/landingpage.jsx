@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Button, Container } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { connect } from 'react-redux'
 import Jumbotron from '../Components/Jumbotron';
 import Carousel from '../Components/Carousel';
 import Header from '../Components/Header'
@@ -8,7 +9,6 @@ import MenuNavBar from '../Components/MenuNavBar';
 import Footer from '../Components/Footer'
 
 class landingpage extends Component {
-
 
 
     toggle() {
@@ -66,8 +66,4 @@ class landingpage extends Component {
     }
 }
 
-const mapStateToProps = () => {
-
-}
-
-export default landingpage;
+export default  landingpage;

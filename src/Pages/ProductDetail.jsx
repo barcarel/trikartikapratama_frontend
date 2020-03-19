@@ -60,7 +60,7 @@ class ProductDetail extends Component {
         var idproduct = this.state.data[0].id
         var productqty = this.state.productqty
         var totalprice = productqty * this.state.data[0].price
-        console.log(productqty)
+        console.log('total price', totalprice)
         if (productqty != 0) {
             var cartUser = this.props.cart.data
             var totalqty = productqty

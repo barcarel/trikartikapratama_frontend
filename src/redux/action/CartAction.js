@@ -21,10 +21,10 @@ export const getUserCart = (id) => {
                 })
             })
             .catch((err) => {
-                Swal.fire({
-                    icon: 'error',
-                    text: 'unable to get user cart'
-                })
+                // Swal.fire({
+                //     icon: 'error',
+                //     text: 'unable to get user cart'
+                // })
             })
     }
 }
@@ -108,5 +108,54 @@ export const deleteUserCart = (iduser) => {
                     text: 'unable to clear user cart'
                 })
             })
+    }
+}
+
+export const deleteProductCart = (iduser, idproduct) => {
+    return (dispatch) => {
+        Axios.delete(API_URL + `/cart/deleteProductCart?iduser=${iduser}&idproduct=${idproduct}`)
+            .then((res) => {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'item removed from cart',
+                    showConfirmButton: false,
+                    timer: '1000'
+                })
+            })
+    }
+}
+
+export const postUserTransaction = (iduser, idproduct, fullname, phoneno, address, province, city, note, bank, totalprice, productqty) => {
+    return (dispatch) => {
+        // console.log(iduser, idproduct, fullname, phoneno, address, province, city, note, bank)
+        Axios.post(API_URL + `/cart/postUserTransaction`, {
+            iduser,
+            idproduct,
+            fullname,
+            phoneno,
+            address,
+            province,
+            city,
+            note,
+            bank,
+            totalprice, 
+            productqty
+        })
+            .then((res) => {
+                var isSaved = 'true'
+                res.data.isSaved = isSaved
+                // console.log(res.data.isSaved)
+                dispatch({
+                    type: 'USER_TRANSACTION_SUCCESS',
+                    payload: res.data
+                })
+            })
+            .catch((err) => console.log(err))
+    }
+}
+
+export const confirmPayment = (idtransaction) => {
+    return(dispatch) => {
+
     }
 }
