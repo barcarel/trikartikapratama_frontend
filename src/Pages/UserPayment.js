@@ -3,6 +3,7 @@ import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
 import Footer from '../Components/Footer'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getUserCart, postUserTransaction } from '../redux/action'
 import { API_URL } from "../support/API_URL";
 import Swal from 'sweetalert2'
@@ -289,7 +290,9 @@ class UserPayment extends Component {
                                         {
                                             this.state.fullnamevalidator.length <= 0 && this.state.addressvalidator.length <= 0 && this.state.cityvalidator.length <= 0 && this.state.cityvalidator.length <= 0
                                                 ?
-                                                <MDBBtn onClick={this.onBtnConfirm} color="red darken-4">CONFIRM ORDER</MDBBtn>
+                                                <Link to='/usertransaction'>
+                                                    <MDBBtn onClick={this.onBtnConfirm} color="red darken-4">CONFIRM ORDER</MDBBtn>
+                                                </Link>
                                                 :
                                                 <MDBBtn disabled color="red darken-4">CONFIRM ORDER</MDBBtn>
 

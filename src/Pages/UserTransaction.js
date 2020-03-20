@@ -4,12 +4,18 @@ import SideNavigation from '../Components/SideNavigation'
 import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
 import Footer from '../Components/Footer'
-import { getUserTransaction } from '../redux/action'
+import { getUserTransaction, deleteUserTransaction } from '../redux/action'
 import HistoryIcon from '@material-ui/icons/History';
 import { API_URL } from "../support/API_URL";
 import { MDBBtn, MDBCard, MDBCardHeader, MDBCardTitle, MDBCardBody, MDBFooter, MDBCardFooter } from 'mdbreact';
+import moment from 'moment'
+import Swal from 'sweetalert2'
 
 class UserTransction extends Component {
+
+    state = {
+        subtotalarray: 0
+    }
 
     componentDidUpdate() {
         if (this.props.id) {
@@ -31,9 +37,48 @@ class UserTransction extends Component {
     //     console.log(array)
     // }
 
+    printSubTotal = (id) => {
+        var subtotal = this.props.data[id].productqty.length / 2
+        return subtotal
+    }
+
+    onBtnCancel = (iduser, idtransaction) => {
+        Swal.fire({
+            title: 'Cancel transaction?',
+            icon: 'info',
+            text: 'You are about to cancel this transaction. Are you sure you want to cancel?',
+            showCancelButton: true,
+            cancelButtonText: 'no',
+            confirmButtonText: 'yes, cancel',
+        }).then((result) => {
+            if (result.value) {
+                this.props.deleteUserTransaction(iduser, idtransaction)
+                Swal.fire({
+                    icon: 'success',
+                    text: 'transaction cancelled'
+                })
+            }
+        })
+    }
+
+    renderSuccessfulTransaction = () => {
+        return (
+            <div className=" pl-3 mt-4">
+                <div className="pl-3 font-weight-bold" >
+                    Transaction history.
+                            </div>
+                {/* <p className="pl-3 text-muted">
+                    Transaction history.
+                </p> */}
+                {/* {this.renderPendingTransactions()} */}
+            </div>
+        )
+    }
+
     renderPendingTransactions = () => {
-        if (this.props.data) {
-            return this.props.data.map((val, id) => {
+        const { data } = this.props
+        if (data) {
+            return data.map((val, id) => {
                 // { this.countTotaltransactionPrice(val.price) }
                 return (
                     <div className="d-flex justify-content-center pb-3 pr-3 ">
@@ -53,49 +98,35 @@ class UserTransction extends Component {
                             <MDBCardBody>
                                 <div className="d-flex justify-content-between">
                                     <div class="d-flex flex-column bd-highlight mb-3">
-                                        <div class="pb-1 bd-highlight">Flex item 1</div>
+                                        {/* <div class="pb-1 bd-highlight">Flex item 1</div>
                                         <div class="pb-1 bd-highlight">Flex item 2</div>
-                                        <div class="pb-1 bd-highlight">Flex item 3</div>
+                                        <div class="pb-1 bd-highlight">Flex item 3</div> */}
+                                        {this.printSubTotal(id)} items
                                     </div>
                                     <div>
-                                        2
                                     </div>
                                     <div>
-                                        3
+                                        Rp {parseInt(val.totalprice).toLocaleString()}
                                     </div>
+                                </div>
+                                <div className="font-weight-bold text-center">
+                                    BANK CENTRAL ASIA (BCA)
+                                                    <br />
+                                                        2521098408
+                                                    <br />
+                                                    PT. TRI KARTIKA PRATAMA
+                                                    <br />
                                 </div>
                             </MDBCardBody>
                             <MDBCardFooter>
-                                <div className="text-right">
-                                    <MDBBtn size="md" color="blue darken-4">Confirm Payment</MDBBtn>
-                                    <MDBBtn outline size="md" color="blue darken-4">cancel</MDBBtn>
+                                <div className="d-flex justify-content-between">
+                                    <div className="d-flex align-items-center text-muted">{moment(val.transactiontime).format('DD MMMM YYYY,  h:mm:ss a')}</div>
+                                    <div >
+                                        <MDBBtn size="md" color="blue darken-4">Confirm Payment</MDBBtn>
+                                        <MDBBtn onClick={() => this.onBtnCancel(this.props.id, val.idtransaction)} outline size="md" color="blue darken-4">cancel</MDBBtn>
+                                    </div>
                                 </div>
                             </MDBCardFooter>
-                            {/* <div className="row"> */}
-                            {/* <div className="p-5">
-                                        <MDBInput label="" type="checkbox" id="checkbox1" />
-                                        <MDBBtn onClick={() => this.onClickRemoveProduct(this.props.id, val.idproduct)} size="sm" color="danger"><DeleteForeverIcon /></MDBBtn>
-                                    </div> */}
-                            {/* <div className="col-4">
-                                        <img src={API_URL + val.imagepath} width="100%" />
-                                    </div> */}
-                            {/* <div className="col-auto d-flex justify-content-center"> */}
-                            {/* <span style={{fontWeight: 'bold'}}> */}
-                            {/* </span> */}
-                            {/* <br /> */}
-                            {/* <div> */}
-                            {/* {val.productqty} pcs x  {val.price.toLocaleString()}
-                                        <br /> */}
-                            {/* </div> */}
-                            {/* <div> */}
-                            {/* Rp {val.totalprice.toLocaleString()} */}
-                            {/* </div> */}
-                            {/* </div> */}
-                            {/* </div> */}
-                            {/* <MDBCardTitle>{val.name}</MDBCardTitle> */}
-                            {/* <MDBCardText>
-                                    {val.productqty} pcs
-                                </MDBCardText> */}
                         </div>
                     </div>
                 )
@@ -118,13 +149,24 @@ class UserTransction extends Component {
                                 <HistoryIcon /> history
                             </MDBBtn>
                         </div>
-                        <div className="pendingtransaction pl-3 pt-3">
-                            <div className="pl-3 font-weight-bold" >
-                                pending transaction
-                            </div>
-                            <p className="pl-3 text-muted">You have pending transaction. If you have transfered, please click on "confirm payment". </p>
-                            {this.renderPendingTransactions()}
-                        </div>
+                        {
+                            this.props.data.length <= 0
+                                ?
+                                this.renderSuccessfulTransaction()
+                                :
+                                <div>
+                                    <div className="pendingtransaction pl-3 pt-5 mt-4">
+                                        <div className="pl-3 font-weight-bold" >
+                                            pending transaction
+                                            </div>
+                                        <p className="pl-3 text-muted">You have transaction that has not been confirmed. If you have transfered, please click confirm. If you want to cancel this transaction, click "cancel".</p>
+                                        {this.renderPendingTransactions()}
+                                    </div>
+                                    <div className="mt-5">
+                                        {this.renderSuccessfulTransaction()}
+                                    </div>
+                                </div>
+                        }
                     </div>
                 </main>
                 <Footer />
@@ -141,4 +183,4 @@ const mapStateToProps = ({ user, transaction }) => {
     }
 }
 
-export default connect(mapStateToProps, { getUserTransaction })(UserTransction);
+export default connect(mapStateToProps, { getUserTransaction, deleteUserTransaction })(UserTransction);

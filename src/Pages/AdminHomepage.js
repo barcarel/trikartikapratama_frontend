@@ -15,6 +15,7 @@ class AdminHomepage extends Component {
         super(props);
         this.state = {
             data: [],
+            datalimit: [],
             isEdit: false,
 
             uploadSecificationFileName: 'choose file',
@@ -40,6 +41,8 @@ class AdminHomepage extends Component {
 
     componentDidMount() {
         this.getProducts()
+        this.getProductsLimit(0)
+        console.log(this.state.datalimit)
     }
 
 
@@ -47,6 +50,15 @@ class AdminHomepage extends Component {
         Axios.get(API_URL + '/products/getAllProducts')
             .then((res) => {
                 this.setState({ data: res.data })
+            })
+            .catch((err) => console.log(err))
+    }
+
+    getProductsLimit = (datalimit) => {
+        console.log(datalimit)
+        Axios.get(API_URL + `/products/getProductLimit?datalimit=${datalimit}`)
+            .then((res) => {
+                this.setState({ datalimit: res.data })
             })
             .catch((err) => console.log(err))
     }
@@ -276,7 +288,7 @@ class AdminHomepage extends Component {
     }
 
     renderData = () => {
-        return this.state.data.map((val, index) => {
+        return this.state.datalimit.map((val, index) => {
             if (this.state.selectedId === val.id) {
                 return (
                     <tr key={val.id}>
@@ -314,7 +326,7 @@ class AdminHomepage extends Component {
                             <p>{val.pdf}</p>
                         </td>
                         <td>
-                        <input type="number" className="form-control" ref="editPrice" />
+                            <input type="number" className="form-control" ref="editPrice" />
                         </td>
                         <td>
                             <MDBBtn outline color="stylish-color-dark" onClick={this.cancelEdit}>cancel</MDBBtn>
@@ -353,6 +365,23 @@ class AdminHomepage extends Component {
             }
         })
     }
+
+    generatePageBtn = () => {
+        var length = this.state.data.length / 3
+        var array = []
+        var counter = 0
+
+        for (var i = 0; i < length; i++) {
+            array.push({ i, counter })
+            counter = counter + 3
+        }
+
+        return array.map((val, id) => {
+            return (
+                <MDBBtn outline color="black" onClick={this.getProductsLimit(counter)} >{id + 1}</MDBBtn>
+            )
+        })
+    }
     render() {
         return (
             <div>
@@ -379,50 +408,53 @@ class AdminHomepage extends Component {
                             </tbody>
                             <tfoot>
                                 {/* <tr bgcolor="#343A40"> */}
-                                    <td className="text-center">
-                                        <AddIcon style={{ color: '#fff', fontSize: '30px' }} /></td>
-                                    <td className="text-center" style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
-                                        {this.addTypeDropdown()}
-                                    </td>
-                                    <td><textarea rows='10' type="text" className="form-control" ref="newDescription" /></td>
-                                    <td style={{ maxWidth: "100vh" }}>
-                                        {/* specification */}
-                                        <form>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddSpecificationFile} />
-                                                <label class="custom-file-label" for="customFile">{this.state.addSpecificationFileName}</label>
-                                            </div>
-                                        </form>
-                                        <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="specpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
-                                    </td>
-                                    <td style={{ maxWidth: "100vh" }}>
-                                        {/* image */}
-                                        <form>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddImageFile} />
-                                                <label class="custom-file-label" for="customFile">{this.state.addImageFileName}</label>
-                                            </div>
-                                        </form>
-                                        <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="imgpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
-                                    </td>
-                                    <td >
-                                        {/* pdf */}
-                                        <form>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddPdfFile} />
-                                                <label class="custom-file-label" for="customFile" value={this.state.uploadPdfFileName}>{this.state.addPdfFileName}</label>
-                                            </div>
-                                        </form>
-                                    </td>
-                                    <td className="text-center">
-                                        <input type="number" className="form-control" ref="newPrice" />
-                                    </td>
-                                    <td className="text-center">
-                                        <button type="button" class="btn btn-success" onClick={this.addProduct}>submit</button>
-                                    </td>
                                 {/* </tr> */}
                             </tfoot>
                         </table>
+                        <div className="text-center">
+                            {this.generatePageBtn()}
+                        </div>
+                        <td className="text-center">
+                            <AddIcon style={{ color: '#black', fontSize: '30px' }} /></td>
+                        <td className="text-center" style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
+                            {this.addTypeDropdown()}
+                        </td>
+                        <td><textarea rows='10' type="text" className="form-control" ref="newDescription" /></td>
+                        <td style={{ maxWidth: "100vh" }}>
+                            {/* specification */}
+                            <form>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddSpecificationFile} />
+                                    <label class="custom-file-label" for="customFile">{this.state.addSpecificationFileName}</label>
+                                </div>
+                            </form>
+                            <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="specpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
+                        </td>
+                        <td style={{ maxWidth: "100vh" }}>
+                            {/* image */}
+                            <form>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddImageFile} />
+                                    <label class="custom-file-label" for="customFile">{this.state.addImageFileName}</label>
+                                </div>
+                            </form>
+                            <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="imgpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
+                        </td>
+                        <td >
+                            {/* pdf */}
+                            <form>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddPdfFile} />
+                                    <label class="custom-file-label" for="customFile" value={this.state.uploadPdfFileName}>{this.state.addPdfFileName}</label>
+                                </div>
+                            </form>
+                        </td>
+                        <td className="text-center">
+                            <input type="number" className="form-control" ref="newPrice" />
+                        </td>
+                        <td className="text-center">
+                            <button type="button" class="btn btn-success" onClick={this.addProduct}>submit</button>
+                        </td>
                     </div>
                 </div>
             </div>

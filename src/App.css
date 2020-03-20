@@ -456,6 +456,7 @@ th {
 
 .pendingtransaction {
   border: 2px solid blue;
+  display: block;
   /* border: 1px solid black; */
   /* background: red; */
   -webkit-box-shadow: 0px 0px 33px -3px rgba(0,0,0,0.75);
@@ -469,6 +470,8 @@ box-shadow: 0px 0px 33px -3px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75); */
 }
+
+.sucessfultransaction
 
 /*----------------- SIDEBAR ----------------- */
 
@@ -516,7 +519,8 @@ main {
 #content {
   margin-left: 270px;
   position: relative;
-  height: 80vh;
+  min-height: 80vh !important;
+  height: relative;
   /* min-height: 80%; */
 }
 

@@ -166,3 +166,11 @@ export const getUserTransaction = (iduser) => {
         })
     }
 }
+
+export const deleteUserTransaction = (iduser, idtransaction) => {
+    return(dispatch) => {
+        Axios.delete(API_URL + `/cart/deleteUserTransaction?iduser=${iduser}&idtransaction=${idtransaction}`)
+        .then((res) => {
+        })
+    }
+}
