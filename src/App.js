@@ -55,7 +55,6 @@ class App extends Component {
                 <Route path='/userprofile' component={UserProfile} />
                 <Route path='/useraccount' component={UserAccount} />
                 <Route path='/usertransaction' component={UserTransaction} />
-               
                 <Route path='/userpayment' component={UserPayment} />
                 <Route path='/usercheckout' component={UserCheckout} />
               </>

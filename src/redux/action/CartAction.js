@@ -154,8 +154,15 @@ export const postUserTransaction = (iduser, idproduct, fullname, phoneno, addres
     }
 }
 
-export const confirmPayment = (idtransaction) => {
+export const getUserTransaction = (iduser) => {
+    // console.log(getUser)
     return(dispatch) => {
-
+        Axios.get(API_URL + `/cart/getUserTransaction?iduser=${iduser}`)
+        .then((res) => {
+            dispatch({
+                type: 'USER_TRANSACTION_SUCCESS',
+                payload: res.data
+            })
+        })
     }
 }

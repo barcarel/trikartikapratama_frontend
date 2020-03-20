@@ -17,7 +17,7 @@ const FooterPage = () => {
                             <h4>We understand your needs and provide the best solution. </h4>
                         </div>
                         <div className="col-4">
-                            <Button color="success" style={{ width: "20vh" }}>
+                            <Button href="https://wa.me/6282299327664?text=I'm%20interested%20in%20buying%20UPS%20and%20battery.%20Please%20tell%20me%20more%20about%20it." color="success" style={{ width: "20vh" }}>
                                 <WhatsAppIcon />
                                 &nbsp;
                                 CONTACT US

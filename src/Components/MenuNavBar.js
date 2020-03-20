@@ -151,10 +151,10 @@ class MenuNavBar extends Component {
                             </div>
                             <MDBDropdownItem divider />
                             {this.renderDataCart()}
-                            <div className="row">
+                            <div className="row p-2">
                                 <div className="col-4 ml-3">
                                     <Link to='/usercheckout'>
-                                        <MDBBtn color="primary">check out</MDBBtn>
+                                        <MDBBtn size="md" color="primary">check out</MDBBtn>
                                     </Link>
                                 </div>
                                 <div className="col-7 d-flex align-items-center font-weight-bold" style={{fontSize: '2vh'}}>

@@ -73,11 +73,14 @@ class UserPayment extends Component {
 
         var idproduct = ''
         var productqty = ''
+        var productname = ''
         this.props.cart.data.map((item) => {
             var temp = item.idproduct.toString()
             idproduct += temp + ','
             var temp2 = item.productqty
             productqty += temp2 + ','
+            var temp3 = item.name
+            productname += temp3 + ','
         })
         // console.log(idproduct)
 
@@ -85,14 +88,14 @@ class UserPayment extends Component {
             if (this.refs.note.value) {
                 var note = this.refs.note.value
                 // console.log(this.props.id, this.props.cart.data.)
-                this.props.postUserTransaction(this.props.id, idproduct, fullname, phoneno, address, province, city, note, bank, totalprice, productqty)
+                this.props.postUserTransaction(this.props.id, idproduct, fullname, phoneno, address, province, city, note, bank, totalprice, productqty, productname)
                 Swal.fire({
                     icon: 'success',
                     text: 'Payment submitted.'
                 })
             } else {
                 var note = 'empty note'
-                this.props.postUserTransaction(this.props.id, idproduct, fullname, phoneno, address, province, city, note, bank, totalprice, productqty)
+                this.props.postUserTransaction(this.props.id, idproduct, fullname, phoneno, address, province, city, note, bank, totalprice, productqty, productname)
                 Swal.fire({
                     icon: 'success',
                     text: 'Payment submitted.'

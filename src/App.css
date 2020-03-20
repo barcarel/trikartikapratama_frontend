@@ -454,6 +454,22 @@ th {
   box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
 }
 
+.pendingtransaction {
+  border: 2px solid blue;
+  /* border: 1px solid black; */
+  /* background: red; */
+  -webkit-box-shadow: 0px 0px 33px -3px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 33px -3px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 33px -3px rgba(0,0,0,0.75);
+}
+
+.pendingtransaction-card {
+  background: white;
+  /* -webkit-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 5px 28px -12px rgba(0, 0, 0, 0.75); */
+}
+
 /*----------------- SIDEBAR ----------------- */
 
 a {
