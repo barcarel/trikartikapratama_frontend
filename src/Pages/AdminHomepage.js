@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 import AdminNavbar from '../Components/AdminNavbar'
-// import AdminModal from '../Components/AdminModal'
+import AdminTransactionPanel from '../Pages/AdminTransactionPanel'
 import Axios from 'axios';
 import Swal from 'sweetalert2';
+import { getAllProducts } from '../redux/action'
 import { API_URL } from '../support/API_URL'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBInput, MDBBtn } from "mdbreact";
 import AddIcon from '@material-ui/icons/Add';
@@ -40,22 +42,23 @@ class AdminHomepage extends Component {
     }
 
     componentDidMount() {
-        this.getProducts()
+        this.props.getAllProducts()
         this.getProductsLimit(0)
-        console.log(this.state.datalimit)
+        // console.log(this.state.datalimit)
     }
 
 
-    getProducts = () => {
-        Axios.get(API_URL + '/products/getAllProducts')
-            .then((res) => {
-                this.setState({ data: res.data })
-            })
-            .catch((err) => console.log(err))
-    }
+    // getProducts = () => {
+    //     Axios.get(API_URL + '/products/getAllProducts')
+    //         .then((res) => {
+    //             this.setState({ data: res.data })
+    //         })
+    //         .catch((err) => console.log(err))
+    // }
 
     getProductsLimit = (datalimit) => {
-        console.log(datalimit)
+        // document.getElementsByClassName(datalimit[0]).style.backgroundColor = 'black'
+        console.log('datalimit', datalimit)
         Axios.get(API_URL + `/products/getProductLimit?datalimit=${datalimit}`)
             .then((res) => {
                 this.setState({ datalimit: res.data })
@@ -292,7 +295,7 @@ class AdminHomepage extends Component {
             if (this.state.selectedId === val.id) {
                 return (
                     <tr key={val.id}>
-                        <td>{index + 1}</td>
+                        {/* <td>{index + 1}</td> */}
                         <td>
                             <textarea type="text" ref="editName" defaultValue={val.name} onChange={this.isEdit} />
                             {this.editTypeDropdown(val.categoryid)}
@@ -338,7 +341,7 @@ class AdminHomepage extends Component {
             } else {
                 return (
                     <tr key={val.id}>
-                        <td className="text-center">{index + 1}</td>
+                        {/* <td className="text-center">{index + 1}</td> */}
                         <td style={{ width: "16vh" }} className="text-center">{val.name} <br /><p className="font-weight-bold">
                             {val.categoryid == 1
                                 ?
@@ -367,7 +370,7 @@ class AdminHomepage extends Component {
     }
 
     generatePageBtn = () => {
-        var length = this.state.data.length / 3
+        var length = this.props.data.length / 3
         var array = []
         var counter = 0
 
@@ -376,9 +379,11 @@ class AdminHomepage extends Component {
             counter = counter + 3
         }
 
+        // console.log(array)
+
         return array.map((val, id) => {
             return (
-                <MDBBtn outline color="black" onClick={this.getProductsLimit(counter)} >{id + 1}</MDBBtn>
+                <MDBBtn outline color="black" onClick={() => this.getProductsLimit(val.counter)} >{id + 1}</MDBBtn>
             )
         })
     }
@@ -387,13 +392,14 @@ class AdminHomepage extends Component {
             <div>
                 <AdminNavbar />
                 <div className="m-5">
-                    <h1>Products</h1>
+                    <AdminTransactionPanel />
+                    <h3>Products</h3>
                     <br />
                     <div className="body">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col" className="text-center">#</th>
+                                    {/* <th scope="col" className="text-center">#</th> */}
                                     <th scope="col" className="text-center">Name</th>
                                     <th scope="col" className="text-center" style={{ width: "15%" }}>Description</th>
                                     <th scope="col" className="text-center">Specification</th>
@@ -411,9 +417,11 @@ class AdminHomepage extends Component {
                                 {/* </tr> */}
                             </tfoot>
                         </table>
-                        <div className="text-center">
+                        <div className="text-center" style={{ marginBottom: '-3vh' }}>
                             {this.generatePageBtn()}
                         </div>
+                    </div>
+                    <div className="mt-5" style={{ backgroundColor: '#8f8f8f' }}>
                         <td className="text-center">
                             <AddIcon style={{ color: '#black', fontSize: '30px' }} /></td>
                         <td className="text-center" style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
@@ -462,4 +470,10 @@ class AdminHomepage extends Component {
     }
 }
 
-export default AdminHomepage;
+const mapStateToProps = ({ allproducts }) => {
+    return {
+        ...allproducts
+    }
+}
+
+export default connect(mapStateToProps, { getAllProducts })(AdminHomepage);

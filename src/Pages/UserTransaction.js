@@ -53,10 +53,6 @@ class UserTransction extends Component {
         }).then((result) => {
             if (result.value) {
                 this.props.deleteUserTransaction(iduser, idtransaction)
-                Swal.fire({
-                    icon: 'success',
-                    text: 'transaction cancelled'
-                })
             }
         })
     }
@@ -77,11 +73,11 @@ class UserTransction extends Component {
 
     renderPendingTransactions = () => {
         const { data } = this.props
-        if (data) {
+        if (data.length > 0) {
             return data.map((val, id) => {
                 // { this.countTotaltransactionPrice(val.price) }
                 return (
-                    <div className="d-flex justify-content-center pb-3 pr-3 ">
+                    <div className="d-flex justify-content-center pb-3 pt-3 ">
                         <div style={{ width: "100%" }} className="pendingtransaction-card">
                             {/* src={API_URL + val.imagepath} */}
                             <MDBCardHeader >

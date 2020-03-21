@@ -10,11 +10,28 @@ export const getProductDetail = (id) => {
                     type: 'GET_PRODUCTDETAIL_SUCCESS',
                     payload: res.data
                 })
-                console.log(res, 'sukses breh')
+                // console.log(res, 'sukses breh')
             })
             .catch((err) => {
                 dispatch({ type: 'GET_PRODUCTDETAIL_FAIL' })
-                console.log(err, 'masalah ni')
+                // console.log(err, 'masalah ni')
             })
+    }
+}
+
+export const getAllProducts = () => {
+    return(dispatch) => {
+        Axios.get(API_URL + '/products/getAllProducts')
+        .then((res) => {
+            dispatch({
+                type: 'GET_ALLPRODUCTS_SUCCESS',
+                payload: res.data
+            })
+        })
+        .catch((err) => {
+            dispatch({
+                type: 'GET_ALLPRODUCTS_FAIL'
+            })
+        })
     }
 }

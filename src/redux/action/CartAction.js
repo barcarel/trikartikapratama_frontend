@@ -171,6 +171,10 @@ export const deleteUserTransaction = (iduser, idtransaction) => {
     return(dispatch) => {
         Axios.delete(API_URL + `/cart/deleteUserTransaction?iduser=${iduser}&idtransaction=${idtransaction}`)
         .then((res) => {
+            Swal.fire({
+                icon: 'success',
+                text: 'transaction cancelled'
+            })
         })
     }
 }

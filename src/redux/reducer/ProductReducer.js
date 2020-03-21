@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 const ProductReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'GET_PRODUCTDETAIL_SUCCESS':
-            console.log('reducer get product by id',action.payload)
+            // console.log('reducer get product by id',action.payload)
             return {
                 ...state, ...action.payload
             }
