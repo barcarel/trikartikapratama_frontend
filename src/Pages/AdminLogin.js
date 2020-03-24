@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Swal from 'sweetalert2'
 import HomeIcon from '@material-ui/icons/Home';
 import { Link, Redirect } from 'react-router-dom'
-import Axios from '../../../../cinemaxnxx-react/cinema/node_modules/axios';
+// import Axios from '../../../../cinemaxnxx-react/cinema/node_modules/axios';
 import { API_URL } from '../support/API_URL';
 import { connect } from 'react-redux'
 import { login } from '../redux/action'
+import Axios from 'axios';
 
 class Admin extends Component {
     constructor(props) {
