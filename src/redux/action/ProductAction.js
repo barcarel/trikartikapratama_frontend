@@ -20,18 +20,32 @@ export const getProductDetail = (id) => {
 }
 
 export const getAllProducts = () => {
-    return(dispatch) => {
+    return (dispatch) => {
         Axios.get(API_URL + '/products/getAllProducts')
-        .then((res) => {
-            dispatch({
-                type: 'GET_ALLPRODUCTS_SUCCESS',
-                payload: res.data
+            .then((res) => {
+                dispatch({
+                    type: 'GET_ALLPRODUCTS_SUCCESS',
+                    payload: res.data
+                })
             })
-        })
-        .catch((err) => {
-            dispatch({
-                type: 'GET_ALLPRODUCTS_FAIL'
+            .catch((err) => {
+                dispatch({
+                    type: 'GET_ALLPRODUCTS_FAIL'
+                })
             })
-        })
     }
+}
+
+export const getUps = () => {
+    return (dispatch) => {
+        Axios.get(API_URL + '/products/getups')
+            .then((res) => {
+                dispatch({
+                    type: 'GET_UPS_SUCCESS',
+                    payload: res.data
+                })
+            })
+            .catch((err) => console.log(err))
+    }
+
 }

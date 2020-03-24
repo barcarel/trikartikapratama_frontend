@@ -4,12 +4,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux'
 import Jumbotron from '../Components/Jumbotron';
 import Carousel from '../Components/Carousel';
+import Carouselbatt from '../Components/Carouselbatt';
 import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar';
 import Footer from '../Components/Footer'
+import { getUserCart } from '../redux/action'
 
 class landingpage extends Component {
 
+    componentDidMount() {
+        this.fnGetCart()
+    }
+
+    fnGetCart = () => {
+        if(this.props.id){
+            this.props.getUserCart(this.props.id)
+        }
+    }
 
     toggle() {
         this.setState({
@@ -25,15 +36,15 @@ class landingpage extends Component {
                 <div className="body">
                     <Jumbotron />
                     <div className="latest-products">
-                        <h3>Latest Products</h3>
+                        <h3>UPS</h3>
                         <Carousel />
                     </div>
                     <hr className="style2" />
                     <div className="featured-products">
                         <br />
                         <br />
-                        <h3>Featured Products</h3>
-                        <Carousel />
+                        <h3>Battery</h3>
+                        <Carouselbatt />
                     </div>
                     <hr className="style1" />
                     <br />
@@ -66,4 +77,10 @@ class landingpage extends Component {
     }
 }
 
-export default  landingpage;
+const mapStateToProps = ({ user }) => {
+    return {
+        ...user
+    }
+}
+
+export default connect(mapStateToProps, { getUserCart })(landingpage);

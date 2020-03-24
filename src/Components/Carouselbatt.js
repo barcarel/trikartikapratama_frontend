@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardFooter, MDBTooltip, MDBCarousel, MDBCarouselInner, MDBCarouselItem } from "mdbreact";
 
-const EcommercePage = () => {
+const Carouselbatt = () => {
     return (
         <section className="text-center  my-5 sizecardcarousel container">
             <MDBCarousel
@@ -20,17 +20,17 @@ const EcommercePage = () => {
                                     <MDBCardImage
                                         cascade
                                         top
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYKjTdsdmxrzK2rHigESO3xtaqwSZq8tCMeU44--jFdK2hDZ93"
+                                        src="https://www.thesafetycentre.co.uk/media/catalog/product/n/p/np55-12.jpg"
                                         alt="sample photo"
                                         className="cardimage"
                                     />
                                     <MDBCardBody cascade>
                                         <a href="#!" className="text-muted">
-                                            <h5>UPS</h5>
+                                            <h5>Battery</h5>
                                         </a>
                                         <MDBCardTitle>
                                             <strong>
-                                                <a href="#!" className="mdbcardtitle">Sentinel Power</a>
+                                                <a href="#!" className="mdbcardtitle">NP55-12</a>
                                             </strong>
                                         </MDBCardTitle>
                                     </MDBCardBody>
@@ -41,17 +41,17 @@ const EcommercePage = () => {
                                     <MDBCardImage
                                         cascade
                                         top
-                                        src="https://www.riello-ups.com/uploads/file/851/1851/linkedin_SDU_6000_Tower_front_2_LR.jpg"
+                                        src="https://www.thesafetycentre.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/n/p/np100-12.jpg"
                                         alt="sample photo"
-                                        className="cardimage"
+                                        style={{ height: '30vh' }}
                                     />
                                     <MDBCardBody cascade>
                                         <a href="#!" className="text-muted">
-                                            <h5>UPS</h5>
+                                            <h5>Battery</h5>
                                         </a>
                                         <MDBCardTitle>
                                             <strong>
-                                                <a href="#!" className="mdbcardtitle">Sentinel Dual SDU</a>
+                                                <a href="#!" className="mdbcardtitle">NP100-12</a>
                                             </strong>
                                         </MDBCardTitle>
                                     </MDBCardBody>
@@ -62,17 +62,17 @@ const EcommercePage = () => {
                                     <MDBCardImage
                                         cascade
                                         top
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTN9xCa56i2vzoIwer1pLwGAH6vkBUy7_GT4XXajcCKt0k9Uc1Y"
+                                        src="https://cpc.farnell.com/productimages/large/en_GB/BT00580-40.jpg"
                                         alt="sample photo"
                                         className="cardimage"
                                     />
                                     <MDBCardBody cascade>
                                         <a href="#!" className="text-muted">
-                                            <h5>UPS</h5>
+                                            <h5>Battery</h5>
                                         </a>
                                         <MDBCardTitle>
                                             <strong>
-                                                <a href="#!" className="mdbcardtitle">Master HE</a>
+                                                <a href="#!" className="mdbcardtitle">NP17-12</a>
                                             </strong>
                                         </MDBCardTitle>
                                     </MDBCardBody>
@@ -87,17 +87,17 @@ const EcommercePage = () => {
                                     <MDBCardImage
                                         cascade
                                         top
-                                        src="https://www.riello-ups.com/uploads/file/534/1534/linkedin_GAMMA_MST_30-200_con_125_LR.jpg"
+                                        src="https://ecs7.tokopedia.net/img/cache/700/product-1/2019/7/4/12158837/12158837_946f3e66-a1a8-4b7c-bf25-c79ed7fb7b86_700_700"
                                         alt="sample photo"
                                         className="cardimage"
                                     />
                                     <MDBCardBody cascade>
                                         <a href="#!" className="text-muted">
-                                            <h5>UPS</h5>
+                                            <h5>Battery</h5>
                                         </a>
                                         <MDBCardTitle>
                                             <strong>
-                                                <a href="#!" className="mdbcardtitle">Multi Sentry MST</a>
+                                                <a href="#!" className="mdbcardtitle">NP12-150</a>
                                             </strong>
                                         </MDBCardTitle>
                                     </MDBCardBody>
@@ -108,17 +108,17 @@ const EcommercePage = () => {
                                     <MDBCardImage
                                         cascade
                                         top
-                                        src="https://www.riello-ups.com/uploads/file/514/1514/linkedin_MHT300-400_Closed_DX_B_OK.jpg"
+                                        src="https://www.horme.com.sg/images/product/20171101170957PJNKV4KADFIFD_full.jpg"
                                         alt="sample photo"
-                                        style={{height: '30vh'}}
+                                        style={{ height: '30vh' }}
                                     />
                                     <MDBCardBody cascade>
                                         <a href="#!" className="text-muted">
-                                            <h5>UPS</h5>
+                                            <h5>Battery</h5>
                                         </a>
                                         <MDBCardTitle>
                                             <strong>
-                                                <a href="#!" className="mdbcardtitle">Master HP</a>
+                                                <a href="#!" className="mdbcardtitle">NP12-120</a>
                                             </strong>
                                         </MDBCardTitle>
                                     </MDBCardBody>
@@ -129,17 +129,17 @@ const EcommercePage = () => {
                                     <MDBCardImage
                                         cascade
                                         top
-                                        src="https://5.imimg.com/data5/LS/HS/BZ/SELLER-37504443/riello-master-mps-40-kva-ups-500x500.jpg"
+                                        src="https://images.tayna.com/prod-images/1200/Yuasa/yuasa-np24-12i.jpg"
                                         alt="sample photo"
-                                        style={{height: '30vh'}}
+                                        className="cardimage"
                                     />
                                     <MDBCardBody cascade>
                                         <a href="#!" className="text-muted">
-                                            <h5>UPS</h5>
+                                            <h5>Battery</h5>
                                         </a>
                                         <MDBCardTitle>
                                             <strong>
-                                                <a href="#!" className="mdbcardtitle">Master MPS</a>
+                                                <a href="#!" className="mdbcardtitle">NP24-12</a>
                                             </strong>
                                         </MDBCardTitle>
                                     </MDBCardBody>
@@ -153,4 +153,4 @@ const EcommercePage = () => {
     );
 }
 
-export default EcommercePage;
+export default Carouselbatt;

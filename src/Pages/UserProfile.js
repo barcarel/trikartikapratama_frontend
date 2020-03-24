@@ -30,6 +30,12 @@ class UserProfile extends Component {
             if (firstname || lastname || phoneno || company) {
                 this.props.userUpdateDetail(id, firstname, lastname, phoneno, company)
                 this.setState({ isEdit: !this.state.isEdit })
+                // window.location.reload()
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'one of the field must be filled. '
+                })
             }
         } else {
             this.setState({ isEdit: !this.state.isEdit })
@@ -49,19 +55,19 @@ class UserProfile extends Component {
         // console.log(this.props.firstname, firstname)
         if ((this.props.firstname != firstname) || (this.props.lastname != lastname) || (this.props.phoneno != phoneno) || (this.props.company != company)) {
             // if ((this.props.firstname != firstname) || lastname || phoneno || company) {
-            Swal.fire({
-                title: 'Cancel changes?',
-                icon: 'info',
-                text: 'You have made some changes. Are you sure you want to cancel?',
-                showCancelButton: true,
-                cancelButtonText: 'no',
-                confirmButtonText: 'yes, cancel',
-            }).then((result) => {
-                if (result.value) {
-                    this.setState({ isEdit: !this.state.isEdit })
-                }
-            })
-        } else {
+            // Swal.fire({
+            //     title: 'Cancel changes?',
+            //     icon: 'info',
+            //     text: 'You have made some changes. Are you sure you want to cancel?',
+            //     showCancelButton: true,
+            //     cancelButtonText: 'no',
+            //     confirmButtonText: 'yes, cancel',
+            // }).then((result) => {
+            //     if (result.value) {
+                //     }
+                // })
+                        this.setState({ isEdit: !this.state.isEdit })
+            } else {
             this.setState({ isEdit: !this.state.isEdit })
         }
     }
@@ -76,13 +82,13 @@ class UserProfile extends Component {
                     <div style={{ marginLeft: '30vh', marginRight: '30vh' }}>
                         <div className="text-center" style={{ fontSize: '20px' }}>Profile setting</div>
                         <div className="mt-5">
-                            <MDBContainer>
+                            <MDBContainer className="p-4 boxshadowuserprofile">
                                 {this.state.isEdit
                                     ?
-                                    <small className="text-muted">Personal information </small>
+                                    <small className="font-weight-bold">Personal information </small>
                                     :
                                     <div>
-                                        <small className="text-muted">Personal information </small>
+                                        <small className="font-weight-bold">Personal information </small>
                                         <MDBBadge tag="a" className="ml-2" color="info-color" onClick={this.toggleEdit}>edit</MDBBadge>
                                     </div>
                                 }

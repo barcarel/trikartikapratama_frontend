@@ -21,14 +21,14 @@ class AdminNavbar extends Component {
                         Welcome, {this.props.username}
                     </div>
                     <div className="float-right mr-5">
-                        <Link to='/' className="mr-5">
-                            <HomeIcon />website
-                        </Link>
-                        <Link to='/adminhomepage' className="mr-5">
+                        <Link to='/admincontrolroom' className="mr-5">
                             <SupervisorAccountIcon />
                                 &nbsp;
-                                 ADMIN
+                                 Control Room
                                 </Link>
+                        <Link to='/' className="mr-5">
+                            <HomeIcon /> visit website
+                        </Link>
                         <Link to='/adminlogin'>
                             <a onClick={this.onBtnLogOut}>log out</a>
                         </Link>

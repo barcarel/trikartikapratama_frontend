@@ -45,7 +45,7 @@ class Header extends Component {
                             <div className="p-2 mr-4">
                                 <CallTwoToneIcon style={{ fontSize: 40 }} className="menu-icon" />
                                 &nbsp;
-                        <span className="contact-info-detail">(021) 4522164</span>
+                        <a href="tel:0214522164" className="contact-info-detail">(021) 4522164</a>
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@ class Header extends Component {
                             <div className="p-2 ml-4">
                                 <EmailTwoToneIcon style={{ fontSize: 40 }} className="menu-icon" />
                                 &nbsp;
-                        <span className="contact-info-detail">pt.trikartika@hotmail.com</span>
+                        <a className="contact-info-detail" href="https://outlook.live.com/owa/">pt.trikartika@hotmail.com</a>
                             </div>
                         </div>
                     </div>

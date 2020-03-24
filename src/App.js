@@ -16,20 +16,23 @@ import Notfound from './Pages/404notfound';
 import Admin from './Pages/AdminLogin';
 import AdminHomepage from './Pages/AdminHomepage';
 import AdminProducts from './Pages/AdminProducts';
+import AdminUserControl from './Pages/AdminUserControl';
+import BeforeAdminHomepage from './Pages/BeforeAdminHomepage';
 import Register from './Pages/Register';
 import UserLogin from './Pages/UserLogin';
 import UserProfile from './Pages/UserProfile';
 import UserAccount from './Pages/UserAccount';
 import UserCheckout from './Pages/UserCheckout';
 import UserTransaction from './Pages/UserTransaction';
+import AdminTransactionPanel from './Pages/AdminTransactionPanel'
 import UserPayment from './Pages/UserPayment';
-import print from './Downloader/print'
+import print from './Downloader/print';
 
 class App extends Component {
 
   componentDidMount() {
     this.props.keepLogin()
-    this.props.getUserCart()
+    this.props.getUserCart(this.props.id)
   }
 
   render() {
@@ -47,7 +50,12 @@ class App extends Component {
           <Route path='/print' component={print} />
           {this.props.role == 'admin'
             ?
-            <Route path='/adminhomepage' component={AdminHomepage} />
+            <div>
+              <Route path='/adminhomepage' component={AdminHomepage} />
+              <Route path='/admincontrolroom' component={BeforeAdminHomepage} />
+              <Route path='/adminusercontrol' component={AdminUserControl} />
+              <Route path='/admintransactionpanel' component={AdminTransactionPanel} />
+            </div>
             :
             this.props.role == 'user'
               ?

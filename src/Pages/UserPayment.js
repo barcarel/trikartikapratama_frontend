@@ -4,7 +4,7 @@ import MenuNavBar from '../Components/MenuNavBar'
 import Footer from '../Components/Footer'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getUserCart, postUserTransaction } from '../redux/action'
+import { getUserCart, postUserTransaction, deleteUserCart } from '../redux/action'
 import { API_URL } from "../support/API_URL";
 import Swal from 'sweetalert2'
 import { MDBInput, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact'
@@ -53,6 +53,10 @@ class UserPayment extends Component {
         }
     }
 
+    // emptyCart = () => {
+    //     dispatch
+    // }
+
     onBtnConfirm = () => {
         var fullname = this.fullName.value
         var phoneno = this.phoneNumber.value
@@ -94,6 +98,8 @@ class UserPayment extends Component {
                     icon: 'success',
                     text: 'Payment submitted.'
                 })
+                this.props.deleteUserCart(this.props.id)
+                this.props.getUserCart(this.props.id)
             } else {
                 var note = 'empty note'
                 this.props.postUserTransaction(this.props.id, idproduct, fullname, phoneno, address, province, city, note, bank, totalprice, productqty, productname)
@@ -101,6 +107,8 @@ class UserPayment extends Component {
                     icon: 'success',
                     text: 'Payment submitted.'
                 })
+                this.props.deleteUserCart(this.props.id)
+                this.props.getUserCart(this.props.id)
             }
         } else {
             Swal.fire({
@@ -320,4 +328,4 @@ const mapStateToProps = ({ user, cart, transaction }) => {
     }
 }
 
-export default connect(mapStateToProps, { getUserCart, postUserTransaction })(UserPayment);
+export default connect(mapStateToProps, { getUserCart, postUserTransaction, deleteUserCart })(UserPayment);

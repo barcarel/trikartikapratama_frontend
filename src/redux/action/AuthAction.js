@@ -32,6 +32,7 @@ export const login = (username, password, role) => {
 export const logout = () => {
     console.log('KELUAR BRO')
     return (dispatch) => {
+        dispatch({ type: 'USER_EMPTYCART' })
         localStorage.removeItem('token')
         dispatch({ type: 'LOGOUT' })
     }
@@ -101,7 +102,7 @@ export const userUpdateDetail = (id, firstname, lastname, phoneno, company) => {
             company
         })
             .then((res) => {
-                localStorage.setItem('token',res.data)
+                localStorage.setItem('token', res.data)
                 dispatch({
                     type: 'USER_FULLPROFILE',
                     payload: res.data
@@ -131,10 +132,21 @@ export const changePassword = (id, oldpassword, newpassword, confirmnewpassword)
             confirmnewpassword
         })
             .then((res) => {
-                dispatch({
-                    type: 'USER_CHANGEPASSWORD_SUCCESS',
-                    payload: res.data
-                })
+                if (res.data == 'wrongpassword') {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'incorrect old password. Please try again.'
+                    })
+                } else {
+                    dispatch({
+                        type: 'USER_CHANGEPASSWORD_SUCCESS',
+                        payload: res.data
+                    })
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'password changed!'
+                    })
+                }
             })
             .catch((err) => {
                 Swal.fire({
@@ -142,6 +154,22 @@ export const changePassword = (id, oldpassword, newpassword, confirmnewpassword)
                     text: 'error change password'
                 })
                 dispatch({ type: 'USER_CHANGEPASSWORD_FAIL' })
+            })
+    }
+}
+
+export const getAllUsers = (role) => {
+    return (dispatch) => {
+        Axios.get(API_URL + `/user/getallusers?role=${role}`)
+            .then((res) => {
+                // console.log(res.data)
+                dispatch({
+                    type: 'GET_ALLUSER_SUCCESS',
+                    payload: res.data
+                })
+            })
+            .catch((err) => {
+                dispatch({ type: 'GET_ALLUSER_FAIL' })
             })
     }
 }

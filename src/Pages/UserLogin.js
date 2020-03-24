@@ -8,11 +8,22 @@ import Axios from 'axios'
 import { login } from '../redux/action'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 class UserLogin extends Component {
 
     state = {
-        redirect: false
+        redirect: false,
+        type: "password"
+    }
+
+    viewPassword = () => {
+        if (this.state.type == 'password') {
+            this.setState({ type: "text" })
+        } else {
+            this.setState({ type: "password" })
+        }
     }
 
     onBtnLogIn = () => {
@@ -77,7 +88,17 @@ class UserLogin extends Component {
                                 </div>
                                 <MDBContainer>
                                     <MDBInput label="Username" focu inputRef={(username) => this.username = username} />
-                                    <MDBInput type="password" label="Password" inputRef={(password) => this.password = password} />
+                                    <a className="float-right" onClick={this.viewPassword}>
+                                        {
+                                            this.state.type == "password"
+                                                ?
+                                                <VisibilityOffIcon />
+                                                :
+                                                <VisibilityIcon />
+                                        }
+                                    </a>
+                                    <br />
+                                    <MDBInput type={this.state.type} label="Password" inputRef={(password) => this.password = password} />
                                     <div className="text-center">
                                         <Link to='/userlogin'>
                                             <MDBBtn color='red darken-4' onClick={this.onBtnLogIn}>log in</MDBBtn>

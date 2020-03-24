@@ -18,7 +18,7 @@ class UserCheckout extends Component {
     onClickRemoveProduct = (iduser, idproduct) => {
         // console.log(iduser, idproduct)
         this.props.deleteProductCart(iduser, idproduct)
-        this.props.getUserCart()
+        this.props.getUserCart(this.props.id)
     }
 
     renderDataCart = () => {
@@ -77,6 +77,7 @@ class UserCheckout extends Component {
                     <div className="container text-center">
                         <div className="pt-5">
                             <h4>Check out</h4>
+                            <p className="text-muted">Review your cart as you can only make changes here. Once you are confirmed, proceed to payment. </p>
                             {/* <div>remove from cart</div> */}
                             <div>
                                 {this.renderDataCart()}

@@ -60,7 +60,7 @@ class ProductDetail extends Component {
         var idproduct = this.state.data[0].id
         var productqty = this.state.productqty
         var totalprice = productqty * this.state.data[0].price
-        console.log('total price', totalprice)
+        // console.log('total price', totalprice)
         if (productqty != 0) {
             var cartUser = this.props.cart.data
             var totalqty = productqty
@@ -139,7 +139,9 @@ class ProductDetail extends Component {
                                     </MDBCard>
                                 </MDBCol>
                                 <div className="m-5">
+                                    <div style={{fontSize:'2.5vh'}}>
                                     Rp {this.printPrice()}
+                                    </div>
                                 </div>
                                 {this.props.role == 'user'
                                     ?
@@ -167,7 +169,7 @@ class ProductDetail extends Component {
                                 }
                             </div>
                         </div>
-                    </div>s
+                    </div>
                     <br />
                     <br />
                 </div>

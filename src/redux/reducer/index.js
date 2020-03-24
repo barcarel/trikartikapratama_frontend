@@ -6,6 +6,8 @@ import ProductReducer from './ProductReducer'
 import CartReducer from './CartReducer'
 import TransactionReducer from './TransactionReducer'
 import AllProductsReducer from './AllProductsReducer'
+import AllUsersReducer from './AllUsersReducer'
+import AllUpsReducer from './AllUpsReducer'
 
 export default combineReducers({
     user: authReducer,
@@ -14,5 +16,7 @@ export default combineReducers({
     product: ProductReducer,
     cart: CartReducer,
     transaction: TransactionReducer,
-    allproducts: AllProductsReducer
+    allproducts: AllProductsReducer,
+    allusers: AllUsersReducer,
+    allups: AllUpsReducer
 })

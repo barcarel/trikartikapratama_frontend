@@ -25,9 +25,9 @@ class MenuNavBar extends Component {
         // totalPrice: 0
     };
     componentDidUpdate() {
-        
+
         if (this.props.id) {
-            this.props.getUserCart()
+            this.props.getUserCart(this.props.id)
             // console.log(this.props.cart.data)
         }
     }
@@ -42,7 +42,7 @@ class MenuNavBar extends Component {
 
     clearUserCart = () => {
         this.props.deleteUserCart(this.props.id)
-        this.props.getUserCart()
+        this.props.getUserCart(this.props.id)
         window.location.reload()
     }
 
@@ -68,9 +68,11 @@ class MenuNavBar extends Component {
                             </MDBDropdownItem>
                             <MDBDropdownItem divider />
                             <MDBDropdownItem onClick={this.onBtnLogOut}>
-                                <ExitToAppIcon />
+                                <MDBNavLink to='/'>
+                                    <ExitToAppIcon />
                                                     log out
-                                                    </MDBDropdownItem>
+                                                    </MDBNavLink>
+                            </MDBDropdownItem>
                         </MDBDropdownMenu>
                     </div>
                     :
@@ -157,7 +159,7 @@ class MenuNavBar extends Component {
                                         <MDBBtn size="md" color="primary">check out</MDBBtn>
                                     </Link>
                                 </div>
-                                <div className="col-7 d-flex align-items-center font-weight-bold" style={{fontSize: '2vh'}}>
+                                <div className="col-7 d-flex align-items-center font-weight-bold" style={{ fontSize: '2vh' }}>
                                     <a className="text-muted ml-4">total </a> Rp {parseInt(this.props.cart.data.totalPrice).toLocaleString()}
                                 </div>
                             </div>

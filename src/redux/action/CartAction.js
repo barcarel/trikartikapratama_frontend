@@ -29,6 +29,12 @@ export const getUserCart = (id) => {
     }
 }
 
+export const clearCart = () => {
+    return {
+        type: 'USER_EMPTYCART'
+    }
+}
+
 export const addToCart = (iduser, idproduct, productqty, totalprice) => {
     return (dispatch) => {
         Axios.post(API_URL + `/cart/postUserCart`, {
@@ -59,6 +65,7 @@ export const addToCart = (iduser, idproduct, productqty, totalprice) => {
             })
     }
 }
+
 
 export const updateProductQty = (iduser, idproduct, totalqty, totalprice) => {
     console.log('totalprice action', totalprice)
@@ -138,7 +145,7 @@ export const postUserTransaction = (iduser, idproduct, fullname, phoneno, addres
             city,
             note,
             bank,
-            totalprice, 
+            totalprice,
             productqty
         })
             .then((res) => {
@@ -156,25 +163,44 @@ export const postUserTransaction = (iduser, idproduct, fullname, phoneno, addres
 
 export const getUserTransaction = (iduser) => {
     // console.log(getUser)
-    return(dispatch) => {
+    return (dispatch) => {
         Axios.get(API_URL + `/cart/getUserTransaction?iduser=${iduser}`)
-        .then((res) => {
-            dispatch({
-                type: 'USER_TRANSACTION_SUCCESS',
-                payload: res.data
+            .then((res) => {
+                dispatch({
+                    type: 'USER_TRANSACTION_SUCCESS',
+                    payload: res.data
+                })
             })
-        })
+    }
+}
+
+export const getUserTransactionWithStatus = (iduser, status) => {
+    return (dispatch) => {
+        Axios.get(API_URL + `/cart/getUserTransactionWithStatus?iduser=${iduser}&status='${status}'`)
+            .then((res) => {
+            })
     }
 }
 
 export const deleteUserTransaction = (iduser, idtransaction) => {
-    return(dispatch) => {
+    return (dispatch) => {
         Axios.delete(API_URL + `/cart/deleteUserTransaction?iduser=${iduser}&idtransaction=${idtransaction}`)
-        .then((res) => {
-            Swal.fire({
-                icon: 'success',
-                text: 'transaction cancelled'
+            .then((res) => {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'transaction cancelled'
+                })
             })
-        })
+    }
+}
+
+export const changeTransactionStatus = (status, idtransaction) => {
+    // changeTransactionStatus
+    return (dispatch) => {
+        Axios.post(API_URL + `/cart/changeTransactionStatus?status=${status}&idtransaction=${idtransaction}`)
+            .then((res) => {
+               
+                // window.location.reload()
+            })
     }
 }

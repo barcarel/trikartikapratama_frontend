@@ -2,17 +2,17 @@ const INITIAL_STATE = {
     data: []
 }
 
-const AllProductsReducer = (state = INITIAL_STATE, action) => {
+const AllUpsReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'GET_ALLPRODUCTS_SUCCESS':
+        case 'GET_UPS_SUCCESS':
             // console.log('all products reducer', action.payload)
             return {
                 ...state, data: action.payload
             }
-        case 'GET_ALL_PRODUCTS_FAIL':
+        case 'GET_UPS_FAIL':
             return INITIAL_STATE
         default:
             return state
     }
 }
-export default AllProductsReducer
+export default AllUpsReducer

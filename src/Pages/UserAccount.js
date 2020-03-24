@@ -2,16 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { MDBInput, MDBContainer, MDBRow, MDBBtn } from 'mdbreact'
 import Swal from 'sweetalert2'
-import {changePassword} from '../redux/action'
+import { changePassword } from '../redux/action'
 import SideNavigation from '../Components/SideNavigation'
 import Header from '../Components/Header'
 import MenuNavBar from '../Components/MenuNavBar'
 import Footer from '../Components/Footer'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 class UserAccount extends Component {
 
     state = {
-        isChangePass: true
+        isChangePass: true,
+        type: "password"
+    }
+
+    viewPassword = () => {
+        if (this.state.type == 'password') {
+            this.setState({ type: "text" })
+        } else {
+            this.setState({ type: "password" })
+        }
     }
 
     onPressChangePassword = () => {
@@ -19,25 +30,27 @@ class UserAccount extends Component {
     }
 
     onBtnCancel = () => {
-        this.setState({isChangePass: !this.state.isChangePass})
+        this.setState({ isChangePass: !this.state.isChangePass })
     }
 
     onBtnSave = () => {
         var oldpassword = this.oldPassword.value
         var newpassword = this.newPassword.value
         var confirmnewpassword = this.confirmNewPassword.value
-        var id  = this.props.id
+        var id = this.props.id
 
-        console.log(id, oldpassword, newpassword, confirmnewpassword)
+        // console.log(id, oldpassword, newpassword, confirmnewpassword)
 
-        if(oldpassword && newpassword && confirmnewpassword){
-            if(newpassword != confirmnewpassword){
+        if (oldpassword && newpassword && confirmnewpassword) {
+            if (newpassword != confirmnewpassword) {
                 Swal.fire({
                     icon: 'warning',
-                    text: 'invalid confirm password'
+                    text: 'New password and confirm new password fields must be the same.'
                 })
+            } else {
+                this.props.changePassword(id, oldpassword, newpassword, confirmnewpassword)
+                // setTimeout(window.location.reload(), 5000)
             }
-            this.props.changePassword(id, oldpassword, newpassword, confirmnewpassword)
         } else {
             Swal.fire({
                 icon: 'error',
@@ -54,14 +67,10 @@ class UserAccount extends Component {
                 <SideNavigation />
                 <main id="content" className="p-5">
                     <div style={{ marginLeft: '30vh', marginRight: '30vh' }}>
-                        <div className="text-center" style={{ fontSize: '20px'}}>Account setting</div>
+                        <div className="text-center" style={{ fontSize: '20px' }}>Account setting</div>
                         <div className="mt-5">
-                            <MDBContainer>
-                                {/* <MDBInput label="Old Username" inputRef={(username) => this.username = username} />
-                                <MDBInput label="Last Name" inputRef={(lastName) => this.lastName = lastName} />
-                                <MDBInput label="Company" inputRef={(company) => this.company = company} />
-                            <MDBBtn outline color='blue darken-4' onClick={this.onBtnSave}>save</MDBBtn> */}
-                                <small className="text-muted mb-5">Account information</small>
+                            <MDBContainer className="boxshadowuserprofile p-4">
+                                <small className="font-weight-bold mb-5">Account information</small>
                                 <div className="row pt-3 mt-3">
                                     <div className="col-3 text-muted">
                                         Username
@@ -82,10 +91,19 @@ class UserAccount extends Component {
                                     :
                                     <div>
                                         <div className="row">
-                                            <div className="col-auto text-muted">
-                                                <MDBInput label="Old password" type="password" inputRef={(oldPassword) => this.oldPassword = oldPassword} />
-                                                <MDBInput label="New password" type="password" inputRef={(newPassword) => this.newPassword = newPassword} />
-                                                <MDBInput label="Confirm new password" type="password" inputRef={(confirmNewPassword) => this.confirmNewPassword = confirmNewPassword} />
+                                            <div className="col-12 text-muted">
+                                                <a className="float-right" onClick={this.viewPassword}>
+                                                    {
+                                                        this.state.type == "password"
+                                                            ?
+                                                            <VisibilityOffIcon />
+                                                            :
+                                                            <VisibilityIcon />
+                                                    }
+                                                </a>
+                                                <MDBInput label="Old password" type={this.state.type} inputRef={(oldPassword) => this.oldPassword = oldPassword} />
+                                                <MDBInput label="New password" type={this.state.type} inputRef={(newPassword) => this.newPassword = newPassword} />
+                                                <MDBInput label="Confirm new password" type={this.state.type} inputRef={(confirmNewPassword) => this.confirmNewPassword = confirmNewPassword} />
                                                 <MDBBtn outline color='blue darken-4' onClick={this.onBtnSave}>Change password</MDBBtn>
                                                 <MDBBtn outline color='stylish-color-dark' onClick={this.onBtnCancel}>cancel</MDBBtn>
                                             </div>
@@ -111,4 +129,4 @@ const mapStateToProps = ({ user }) => {
     }
 }
 
-export default connect(mapStateToProps, {changePassword})(UserAccount);
+export default connect(mapStateToProps, { changePassword })(UserAccount);

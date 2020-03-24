@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import AdminNavbar from '../Components/AdminNavbar'
-import AdminTransactionPanel from '../Pages/AdminTransactionPanel'
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import { getAllProducts } from '../redux/action'
 import { API_URL } from '../support/API_URL'
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBInput, MDBBtn } from "mdbreact";
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBRow, MDBCol, MDBInput, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter } from "mdbreact";
 import AddIcon from '@material-ui/icons/Add';
 
 
@@ -19,24 +18,25 @@ class AdminHomepage extends Component {
             data: [],
             datalimit: [],
             isEdit: false,
+            modal: false,
 
             uploadSecificationFileName: 'choose file',
             addSpecificationFileName: ' Specification Image',
             addSpecificationFile: undefined,
 
-            uploadPdfFileName: 'choose file',
-            addPdfFileName: 'PDF',
-            addPdfFile: undefined,
+            // uploadPdfFileName: 'choose file',
+            // addPdfFileName: 'PDF',
+            // addPdfFile: undefined,
 
             uploadFileName: 'choose file',
             addImageFileName: 'Product Image',
             addImageFile: undefined,
 
             editImageFileName: 'choose image',
-            editPdfFileName: 'select file',
+            // editPdfFileName: 'select file',
             editSpecificationFileName: 'select image',
             editImageFile: undefined,
-            editPdfFile: undefined,
+            // editPdfFile: undefined,
             editSpecificationFile: undefined,
         }
     }
@@ -47,17 +47,11 @@ class AdminHomepage extends Component {
         // console.log(this.state.datalimit)
     }
 
-
-    // getProducts = () => {
-    //     Axios.get(API_URL + '/products/getAllProducts')
-    //         .then((res) => {
-    //             this.setState({ data: res.data })
-    //         })
-    //         .catch((err) => console.log(err))
-    // }
+    toggle = () => {
+        this.setState({ modal: !this.state.modal })
+    }
 
     getProductsLimit = (datalimit) => {
-        // document.getElementsByClassName(datalimit[0]).style.backgroundColor = 'black'
         console.log('datalimit', datalimit)
         Axios.get(API_URL + `/products/getProductLimit?datalimit=${datalimit}`)
             .then((res) => {
@@ -88,14 +82,14 @@ class AdminHomepage extends Component {
         }
     }
 
-    onBtnAddPdfFile = (e) => { //upload pdf
-        console.log('pdf', e.target.files[0])
-        if (e.target.files[0]) {
-            this.setState({ addPdfFileName: e.target.files[0].name, addPdfFile: e.target.files[0] })
-        } else {
-            this.setState({ addPdfFileName: 'select pdf', addPdfFile: undefined })
-        }
-    }
+    // onBtnAddPdfFile = (e) => { //upload pdf
+    //     console.log('pdf', e.target.files[0])
+    //     if (e.target.files[0]) {
+    //         this.setState({ addPdfFileName: e.target.files[0].name, addPdfFile: e.target.files[0] })
+    //     } else {
+    //         this.setState({ addPdfFileName: 'select pdf', addPdfFile: undefined })
+    //     }
+    // }
 
     onBtnEditPdfFile = (e) => {
         if (e.target.files[0]) {
@@ -135,14 +129,14 @@ class AdminHomepage extends Component {
     }
 
     addProduct = () => {
-        let { addImageFile, addPdfFile, addSpecificationFile } = this.state;
+        let { addImageFile, addSpecificationFile } = this.state;
 
-        var name = this.refs.newName.value
-        var description = this.refs.newDescription.value
+        var name = this.newName.value
+        var description = this.newDescription.value
         var categoryid = this.state.addTypeId
-        var price = this.refs.newPrice.value
+        var price = this.newPrice.value
 
-        if (addPdfFile || addImageFile || addSpecificationFile) {
+        if (name && description && categoryid && price && addImageFile && addSpecificationFile) {
             let formData = new FormData()
             let obj = {
                 name: name,
@@ -152,18 +146,18 @@ class AdminHomepage extends Component {
             }
             formData.append('data', JSON.stringify(obj)) //dijadiin JSON
             formData.append('image', addImageFile)
-            formData.append('pdf', addPdfFile)
             formData.append('specification', addSpecificationFile)
-            console.log(formData)
+            // console.log(formData)
             Axios.post(API_URL + '/products/postProduct', formData)
                 .then((res) => {
                     console.log(res.data)
-                    this.setState({ addImageFileName: 'select image', addImageFile: undefined, addPdfFileName: 'select pdf', addPdfFile: undefined, addSpecificationFileName: 'Select Image', addSpecificationFile: undefined })
+                    this.setState({ addImageFileName: 'select image', addImageFile: undefined, addSpecificationFileName: 'Select Image', addSpecificationFile: undefined })
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'sucessfully added a product.',
+                        showConfirmButton: false
+                    })
                     window.location.reload()
-                    // Swal.fire({
-                    //     icon: 'succes',
-                    //     text: 'sucessfully added a product'
-                    // })
                     this.getProducts()
                 })
                 .catch((err) => {
@@ -172,9 +166,8 @@ class AdminHomepage extends Component {
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'error',
                 text: 'please fill in all the fields.',
-                timer: '5000'
+                timer: '3000'
             })
         }
     }
@@ -231,63 +224,108 @@ class AdminHomepage extends Component {
     }
 
     cancelEdit = () => {
-        this.setState({ selectedId: null, editImageFileName: 'Select Image', editImageFile: undefined, editPdfFileName: 'Select PDF' })
+        this.setState({ selectedId: null, editImageFileName: 'Select Image', editImageFile: undefined })
     }
 
     submitEdit = (id) => {
 
-        let { editImageFile, editPdfFile, editSpecificationFile } = this.state
-        let obj = {}
-        let formData = new FormData()
+        Swal.fire({
+            title: 'submit changes?',
+            icon: 'info',
+            text: 'are you sure you want to make changes to this product?',
+            showCancelButton: true,
+            cancelButtonText: 'no',
+            confirmButtonText: 'yes',
+        }).then((result) => {
+            if (result.value) {
+                let { editImageFile, editSpecificationFile } = this.state
+                let obj = {}
+                let formData = new FormData()
 
-        if (this.refs.editName.value == '' && this.state.editTypeId == undefined && this.refs.editDescription.value == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'please fill in all the fields.',
-                timer: '5000'
-            })
-        }
-        else if (editImageFile || editPdfFile || editSpecificationFile) { //kalo ada foto baru
-            obj = {
-                name: this.refs.editName.value,
-                description: this.refs.editDescription.value,
-                categoryid: this.state.editTypeId,
-                price: this.refs.editPrice.value
+                if (this.refs.editName.value == '' && this.state.editTypeId == undefined && this.refs.editDescription.value == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'error',
+                        text: 'please fill in all the fields.',
+                        timer: '5000'
+                    })
+                } else if (editImageFile && editSpecificationFile) {
+                    obj = {
+                        name: this.refs.editName.value,
+                        description: this.refs.editDescription.value,
+                        categoryid: this.state.editTypeId,
+                        price: this.refs.editPrice.value
+                    }
+                    formData.append('specification', editSpecificationFile)
+                    formData.append('image', editImageFile)
+                }
+                else if (editImageFile) { //kalo ada foto baru
+                    obj = {
+                        name: this.refs.editName.value,
+                        description: this.refs.editDescription.value,
+                        categoryid: this.state.editTypeId,
+                        price: this.refs.editPrice.value
+                    }
+                    formData.append('image', editImageFile)
+                } else if (editSpecificationFile) {
+                    obj = {
+                        name: this.refs.editName.value,
+                        description: this.refs.editDescription.value,
+                        categoryid: this.state.editTypeId,
+                        price: this.refs.editPrice.value
+                    }
+                    formData.append('specification', editSpecificationFile)
+                }
+                else { //kalo ga ad foto baru
+                    obj = {
+                        name: this.refs.editName.value,
+                        description: this.refs.editDescription.value,
+                        categoryid: this.state.editTypeId,
+                        price: this.refs.editPrice.value
+                    }
+                }
+                // console.log(obj)
+                formData.append('data', JSON.stringify(obj))
+                // console.log(formData)
+                Axios.post(API_URL + `/products/editProduct?id=${id}`, formData)
+                    .then((res) => {
+                        this.setState({ editImageFileName: 'Select Image', editImageFile: undefined, selectedId: null })
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Product changes saved.'
+                        })
+                        window.location.reload()
+                    })
+                    .catch((err) => { console.log(err) })
             }
-            console.log(editImageFile)
-            console.log(editPdfFile)
-            console.log(editSpecificationFile)
-            formData.append('image', editImageFile)
-            formData.append('pdf', editPdfFile)
-            formData.append('specification', editSpecificationFile)
-        }
-        else { //kalo ga ad foto baru
-            obj = {
-                name: this.refs.editName.value,
-                description: this.refs.editDescription.value,
-                categoryid: this.state.editTypeId,
-                price: this.refs.editPrice.value
-            }
-        }
-        console.log(obj)
-        formData.append('data', JSON.stringify(obj))
-        console.log(formData)
-        Axios.post(API_URL + `/products/editProduct?id=${id}`, formData)
-            .then((res) => {
-                this.setState({ editImageFileName: 'Select Image', editImageFile: undefined, selectedId: null })
-                this.getProducts()
-            })
-            .catch((err) => { console.log(err) })
+        })
+
     }
 
-    deleteProduct = (id, imagepath, pdf, specification) => {
-        console.log(id + imagepath + pdf + specification)
-        Axios.delete(API_URL + `/products/deleteProduct?id=${id}&imagepath=${imagepath}&pdf=${pdf}&specification=${specification}`)
-            .then((res) => {
-                this.getProducts()
-            })
-            .catch((err) => console.log(err))
+    deleteProduct = (id, imagepath, specification) => {
+        // console.log(id + imagepath + pdf + specification)
+        Swal.fire({
+            title: 'delete product?',
+            icon: 'error',
+            text: 'are you sure you want to delete this product?',
+            showCancelButton: true,
+            cancelButtonText: 'no',
+            confirmButtonText: 'yes, delete',
+            confirmButtonColor: '#D32F2F'
+        }).then((result) => {
+            if (result.value) {
+                Axios.delete(API_URL + `/products/deleteProduct?id=${id}&imagepath=${imagepath}&specification=${specification}`)
+                    .then((res) => {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'product deleted',
+                            showConfirmButton: false
+                        })
+                        window.location.reload()
+                    })
+                    .catch((err) => console.log(err))
+            }
+        })
     }
 
     renderData = () => {
@@ -320,16 +358,7 @@ class AdminHomepage extends Component {
                             <img className="p-3" src={API_URL + val.imagepath} id="imgedit" alt="productimg" style={{ width: "30vh" }} />
                         </td>
                         <td>
-                            <form>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFileEdit" onChange={this.onBtnEditPdfFile} />
-                                    <label class="custom-file-label" for="customFileEdit">{this.state.editPdfFileName}</label>
-                                </div>
-                            </form>
-                            <p>{val.pdf}</p>
-                        </td>
-                        <td>
-                            <input type="number" className="form-control" ref="editPrice" />
+                            <input type="number" className="form-control" ref="editPrice" defaultValue={val.price} />
                         </td>
                         <td>
                             <MDBBtn outline color="stylish-color-dark" onClick={this.cancelEdit}>cancel</MDBBtn>
@@ -355,8 +384,7 @@ class AdminHomepage extends Component {
                         <td className="text-center">
                             <img src={API_URL + val.imagepath} alt="productimage" style={{ width: "20vh" }} />
                         </td>
-                        <td className="text-center">{val.pdf}</td>
-                        <td className="text-center">{val.price}</td>
+                        <td className="text-center">Rp {parseInt(val.price).toLocaleString()}</td>
                         <td className="text-center">
                             <button type="button" class="btn btn-primary" onClick={() => this.editProduct(val.id)}>edit</button>
                             &nbsp;
@@ -370,7 +398,7 @@ class AdminHomepage extends Component {
     }
 
     generatePageBtn = () => {
-        var length = this.props.data.length / 3
+        var length = Math.ceil(this.props.data.length / 3)
         var array = []
         var counter = 0
 
@@ -389,22 +417,23 @@ class AdminHomepage extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="body">
                 <AdminNavbar />
-                <div className="m-5">
-                    <AdminTransactionPanel />
-                    <h3>Products</h3>
+                <div className="ml-5 mr-5 mb-5 mt-4">
+                    <div>
+                        <div className="text-center">
+                            <h3>Products <span className="mr-5 mb-2 float-right"><MDBBtn size="sm" color="green darken-1" onClick={this.toggle} ><AddIcon /> </MDBBtn></span> </h3>
+                        </div>
+                    </div>
                     <br />
                     <div className="body">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    {/* <th scope="col" className="text-center">#</th> */}
                                     <th scope="col" className="text-center">Name</th>
                                     <th scope="col" className="text-center" style={{ width: "15%" }}>Description</th>
                                     <th scope="col" className="text-center">Specification</th>
                                     <th scope="col" className="text-center">Image</th>
-                                    <th scope="col" className="text-center">PDF</th>
                                     <th scope="col" className="text-center">Price</th>
                                     <th scope="col" className="text-center" style={{ width: "14%" }}>action</th>
                                 </tr>
@@ -412,59 +441,53 @@ class AdminHomepage extends Component {
                             <tbody>
                                 {this.renderData()}
                             </tbody>
-                            <tfoot>
-                                {/* <tr bgcolor="#343A40"> */}
-                                {/* </tr> */}
-                            </tfoot>
                         </table>
                         <div className="text-center" style={{ marginBottom: '-3vh' }}>
                             {this.generatePageBtn()}
                         </div>
                     </div>
-                    <div className="mt-5" style={{ backgroundColor: '#8f8f8f' }}>
-                        <td className="text-center">
-                            <AddIcon style={{ color: '#black', fontSize: '30px' }} /></td>
-                        <td className="text-center" style={{ width: '13vh' }}><input type="text" className="form-control" ref="newName" />
-                            {this.addTypeDropdown()}
-                        </td>
-                        <td><textarea rows='10' type="text" className="form-control" ref="newDescription" /></td>
-                        <td style={{ maxWidth: "100vh" }}>
-                            {/* specification */}
-                            <form>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddSpecificationFile} />
-                                    <label class="custom-file-label" for="customFile">{this.state.addSpecificationFileName}</label>
-                                </div>
-                            </form>
-                            <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="specpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
-                        </td>
-                        <td style={{ maxWidth: "100vh" }}>
-                            {/* image */}
-                            <form>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddImageFile} />
-                                    <label class="custom-file-label" for="customFile">{this.state.addImageFileName}</label>
-                                </div>
-                            </form>
-                            <img src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="imgpreview" className="img-fluid p-3" style={{ maxWidth: "100%" }} />
-                        </td>
-                        <td >
-                            {/* pdf */}
-                            <form>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddPdfFile} />
-                                    <label class="custom-file-label" for="customFile" value={this.state.uploadPdfFileName}>{this.state.addPdfFileName}</label>
-                                </div>
-                            </form>
-                        </td>
-                        <td className="text-center">
-                            <input type="number" className="form-control" ref="newPrice" />
-                        </td>
-                        <td className="text-center">
-                            <button type="button" class="btn btn-success" onClick={this.addProduct}>submit</button>
-                        </td>
-                    </div>
                 </div>
+                <MDBModal size="lg" isOpen={this.state.modal} centered>
+                    <MDBModalHeader toggle={this.toggle}>Add Product</MDBModalHeader>
+                    <MDBModalBody>
+                        <MDBRow>
+                            <MDBCol className="pl-3 pr-3">
+                                <form>
+                                    <div className="grey-text">
+                                        <MDBInput label="Name" group type="text" inputRef={(newName) => this.newName = newName} />
+                                        <MDBInput label="Price" group type="number" inputRef={(newPrice) => this.newPrice = newPrice} />
+                                        {this.addTypeDropdown()}
+                                        <MDBInput type="textarea" label="Description" inputRef={(newDescription) => this.newDescription = newDescription} rows="3" />
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <form>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddSpecificationFile} />
+                                                        <label class="custom-file-label" for="customFile">{this.state.addSpecificationFileName}</label>
+                                                    </div>
+                                                </form>
+                                                <img width="100%" src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="specpreview" className="img-fluid p-3" />
+                                            </div>
+                                            <div className="col-6">
+                                                <form>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="customFile" onChange={this.onBtnAddImageFile} />
+                                                        <label class="custom-file-label" for="customFile">{this.state.addImageFileName}</label>
+                                                    </div>
+                                                </form>
+                                                <img width="100%" src="https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg" alt="preview" id="imgpreview" className="img-fluid p-3" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                        <MDBBtn color="green darken-4" onClick={this.addProduct}>ADD PRODUCT</MDBBtn>
+                        <MDBBtn color="" onClick={this.toggle}>CANCEL</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModal>
             </div>
         );
     }

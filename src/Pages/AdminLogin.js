@@ -44,7 +44,7 @@ class Admin extends Component {
     render() {
         if (this.state.redirect) {
             return (
-                <Redirect to='/AdminHomepage'></Redirect>
+                <Redirect to='/admincontrolroom'></Redirect>
             )
         }
         return (
